@@ -113,6 +113,14 @@ export default async function TourGrid() {
                   </div>
                 )}
 
+                {/* Best For — admin → Tours & Tickets → "Best for" field */}
+                {tour.bestFor && (
+                  <div className="mt-1.5 flex items-start gap-1.5 text-[11px] text-[#26332B]/70">
+                    <span>👤</span>
+                    <span className="font-medium">Best for: {tour.bestFor}</span>
+                  </div>
+                )}
+
                 {/* "Why we recommend this" — admin → Recommended Tour panel */}
                 {isRecommended && homepage.featuredReasons.filter(Boolean).length > 0 && (
                   <div className="mt-3.5 rounded-xl bg-amber-50/50 border border-amber-200/60 p-3">

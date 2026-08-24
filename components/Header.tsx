@@ -18,8 +18,8 @@ export default async function Header() {
   const ctaHref = header.ctaHref || "#tours";
 
   return (
-    <header className="sticky top-0 z-50 w-full overflow-hidden border-0 transition-all duration-300">
-      {/* Hero Image in Header Background */}
+    <header className="sticky top-0 z-50 w-full overflow-hidden border-0 transition-all duration-300 bg-[#E8F1F8] md:bg-transparent">
+      {/* Hero Image in Header Background (Sky portion on desktop, pure daylight sky tone on mobile) */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <SafeImage
           src={heroImageSrc}
@@ -27,10 +27,10 @@ export default async function Header() {
           fill
           priority
           sizes="100vw"
-          className="object-cover object-[80%_top] lg:object-[right_top]"
+          className="hidden md:block object-cover object-[80%_0%] lg:object-[right_top]"
         />
         {/* Soft overlay matching hero sky gradient for crisp text legibility */}
-        <div className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/80 via-40% md:via-white/60 md:via-48% lg:via-52% to-white/40 backdrop-blur-[2px]" />
+        <div className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/80 via-40% md:via-white/60 md:via-48% lg:via-52% to-white/40 md:backdrop-blur-[2px]" />
       </div>
 
       <div className="relative z-10 mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-8">
