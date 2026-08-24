@@ -27,7 +27,7 @@ export default async function Hero() {
             alt={content.heroImageAlt || "Pena Palace's iconic yellow and red towers in Sintra, Portugal"}
             fill
             priority
-            quality={95}
+            quality={75}
             sizes="100vw"
             className="object-cover object-[80%_center] md:object-[78%_center] lg:object-right"
           />

@@ -48,7 +48,7 @@ export default async function AboutPage() {
               alt={about.heroImageAlt || "Pena Palace, Sintra"}
               fill
               priority
-              quality={95}
+              quality={75}
               sizes="100vw"
               className="object-cover object-[80%_center] md:object-[78%_center] lg:object-right"
             />
