@@ -834,7 +834,7 @@ export default function HomepageForm({ initial, tours }: { initial: HomepageCont
               <Field label="Related Articles heading">
                 <input value={content.sections.blogPage.sidebarRelatedHeading} onChange={(e) => updateBlogPage({ sidebarRelatedHeading: e.target.value })} className={inputClass} />
               </Field>
-              <Field label="Compare-all-cruises link text">
+              <Field label="Compare-all-tickets link text">
                 <input value={content.sections.blogPage.sidebarCompareLinkText} onChange={(e) => updateBlogPage({ sidebarCompareLinkText: e.target.value })} className={inputClass} />
               </Field>
               <Field label={'Mid-article promo card "Recommended for you" label'}>

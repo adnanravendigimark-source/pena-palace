@@ -40,48 +40,54 @@ export default async function AboutPage() {
     <>
       <Header />
       <main className="bg-white">
-        {/* Hero banner — matching header aesthetic */}
-        <section className="relative overflow-hidden bg-[#FAFAF9] border-b border-gray-100">
+        {/* Hero banner — same vivid image and atmospheric gradient as homepage Hero */}
+        <section className="relative overflow-hidden bg-white border-b border-gray-100">
           <div className="absolute inset-0 z-0 pointer-events-none">
             <SafeImage
-              src={about.heroImage || "/images/pena-terrace.jpg"}
+              src="/images/pena-palace-hero.jpg"
               alt={about.heroImageAlt || "Pena Palace, Sintra"}
               fill
               priority
-              quality={80}
+              quality={95}
               sizes="100vw"
-              className="object-cover object-center opacity-40"
+              className="object-cover object-[80%_center] md:object-[78%_center] lg:object-right"
             />
-            <div className="absolute inset-0 bg-gradient-to-b from-white/90 via-white/80 to-white/95" />
+            {/* Atmospheric gradient matching homepage Hero section */}
+            <div className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/85 via-45% md:from-white/90 md:via-white/60 md:via-50% lg:via-52% to-transparent" />
           </div>
 
-          <div className="relative z-10 mx-auto max-w-4xl px-4 py-16 text-center sm:px-6 sm:py-20">
-            <nav aria-label="Breadcrumb" className="text-xs font-medium text-[#26332B]/70">
-              <ol className="flex items-center justify-center gap-1.5">
-                <li>
-                  <Link href="/" className="hover:text-[#D6A33A] transition-colors">
-                    Home
-                  </Link>
-                </li>
-                <li className="text-[#26332B]/40">&gt;</li>
-                <li className="font-semibold text-[#123B27]" aria-current="page">
-                  About Us
-                </li>
-              </ol>
-            </nav>
+          <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-8 py-16 sm:py-20 lg:py-24">
+            <div className="max-w-2xl">
+              <nav aria-label="Breadcrumb" className="text-xs font-medium text-[#26332B]/70">
+                <ol className="flex items-center gap-1.5">
+                  <li>
+                    <Link href="/" className="hover:text-[#D6A33A] transition-colors">
+                      Home
+                    </Link>
+                  </li>
+                  <li className="text-[#26332B]/40">&gt;</li>
+                  <li className="font-semibold text-[#123B27]" aria-current="page">
+                    About Us
+                  </li>
+                </ol>
+              </nav>
 
-            <span className="mt-4 inline-block text-xs font-bold uppercase tracking-widest text-[#D6A33A]">
-              {about.heroEyebrow}
-            </span>
+              <span className="mt-4 inline-block text-xs font-bold uppercase tracking-widest text-[#D6A33A]">
+                {about.heroEyebrow}
+              </span>
 
-            <h1 className="mt-2 font-serif text-3xl font-bold tracking-tight text-[#123B27] sm:text-4xl lg:text-5xl">
-              {about.heroHeading}
-            </h1>
+              <h1 className="mt-2 font-serif text-3xl font-bold tracking-tight text-[#123B27] sm:text-4xl lg:text-5xl">
+                {about.heroHeading}
+              </h1>
 
-            <div
-              className="rich-content mx-auto mt-4 max-w-2xl text-xs leading-relaxed text-[#26332B]/85 sm:text-sm"
-              dangerouslySetInnerHTML={{ __html: about.heroSubheading }}
-            />
+              {/* Palace Gold Accent Line */}
+              <div className="mt-3.5 mb-4 h-[2.5px] w-12 rounded-full bg-[#D6A33A]" />
+
+              <div
+                className="rich-content mt-3 text-xs leading-relaxed text-[#26332B]/85 sm:text-sm"
+                dangerouslySetInnerHTML={{ __html: about.heroSubheading }}
+              />
+            </div>
           </div>
         </section>
 

@@ -36,47 +36,50 @@ export default async function BlogIndexPage() {
     <>
       <Header />
       <main className="min-h-screen bg-white">
-        {/* Blog Hero Banner — matching header daylight theme */}
-        <section className="relative overflow-hidden bg-[#FAFAF9] border-b border-gray-100">
+        {/* Blog Hero Banner — matching homepage Hero aesthetic */}
+        <section className="relative overflow-hidden bg-white border-b border-gray-100">
           <div className="absolute inset-0 z-0 pointer-events-none">
             <SafeImage
-              src={heroImage || "/images/pena-tour-1.jpg"}
+              src="/images/pena-palace-hero.jpg"
               alt={heroImageAlt || "Pena Palace illuminated on the Sintra hills"}
               fill
               priority
-              quality={80}
+              quality={95}
               sizes="100vw"
-              className="object-cover object-center opacity-35"
+              className="object-cover object-[80%_center] md:object-[78%_center] lg:object-right"
             />
-            <div className="absolute inset-0 bg-gradient-to-b from-white/90 via-white/80 to-white/95" />
+            {/* Atmospheric gradient matching homepage Hero section */}
+            <div className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/85 via-45% md:from-white/90 md:via-white/60 md:via-50% lg:via-52% to-transparent" />
           </div>
 
-          <div className="relative z-10 mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20 text-center sm:text-left">
-            {/* Breadcrumb */}
-            <nav aria-label="Breadcrumb" className="text-xs font-medium text-[#26332B]/70">
-              <ol className="flex items-center justify-center sm:justify-start gap-1.5">
-                <li>
-                  <Link href="/" className="hover:text-[#D6A33A] transition-colors">
-                    Home
-                  </Link>
-                </li>
-                <li className="text-[#26332B]/40">&gt;</li>
-                <li className="font-semibold text-[#123B27]" aria-current="page">
-                  Blog &amp; Guides
-                </li>
-              </ol>
-            </nav>
+          <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-8 py-16 sm:py-20 lg:py-24">
+            <div className="max-w-2xl">
+              {/* Breadcrumb */}
+              <nav aria-label="Breadcrumb" className="text-xs font-medium text-[#26332B]/70">
+                <ol className="flex items-center gap-1.5">
+                  <li>
+                    <Link href="/" className="hover:text-[#D6A33A] transition-colors">
+                      Home
+                    </Link>
+                  </li>
+                  <li className="text-[#26332B]/40">&gt;</li>
+                  <li className="font-semibold text-[#123B27]" aria-current="page">
+                    Blog &amp; Guides
+                  </li>
+                </ol>
+              </nav>
 
-            <h1 className="mt-3.5 font-serif text-3xl font-bold tracking-tight text-[#123B27] sm:text-4xl lg:text-5xl">
-              {s.heading || "Pena Palace Travel Guides"}
-            </h1>
+              <h1 className="mt-3.5 font-serif text-3xl font-bold tracking-tight text-[#123B27] sm:text-4xl lg:text-5xl">
+                {s.heading || "Pena Palace Travel Guides"}
+              </h1>
 
-            {/* Palace Gold Accent Line */}
-            <div className="mt-3.5 mb-4 h-[2.5px] w-12 rounded-full bg-[#D6A33A] mx-auto sm:mx-0" />
+              {/* Palace Gold Accent Line */}
+              <div className="mt-3.5 mb-4 h-[2.5px] w-12 rounded-full bg-[#D6A33A]" />
 
-            <p className="mt-2 max-w-lg text-xs leading-relaxed text-[#26332B]/85 sm:text-sm">
-              {s.subheading || "Tips, ticket comparisons and travel guides to help you experience Pena Palace and the Sintra hills."}
-            </p>
+              <p className="mt-2 text-xs leading-relaxed text-[#26332B]/85 sm:text-sm">
+                {s.subheading || "Tips, ticket comparisons and travel guides to help you experience Pena Palace and the Sintra hills."}
+              </p>
+            </div>
           </div>
         </section>
 
