@@ -67,8 +67,8 @@ export default async function ContactPage() {
             {contact.reasons.map(({ icon, title, body }) => {
               const Icon = getIconComponent(icon);
               return (
-                <div key={title} className="rounded-2xl border border-[#E9E1D3] bg-white p-5.5 shadow-sm text-center sm:text-left transition hover:shadow-md hover:border-[#D6A33A]/40">
-                  <span className="mx-auto flex h-10 w-10 items-center justify-center rounded-xl bg-[#F7F3EA] border border-[#E9E1D3] text-[#123B27] sm:mx-0">
+                <div key={title} className="rounded-2xl border border-gray-200 bg-white p-5.5 shadow-sm text-center sm:text-left transition hover:shadow-md hover:border-[#D6A33A]/40">
+                  <span className="mx-auto flex h-10 w-10 items-center justify-center rounded-xl bg-gray-50 border border-gray-200 text-[#123B27] sm:mx-0">
                     <Icon className="h-5 w-5" />
                   </span>
                   <p className="mt-4 text-sm font-bold text-[#123B27]">{title}</p>

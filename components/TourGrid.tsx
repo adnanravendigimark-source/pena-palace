@@ -2,11 +2,20 @@ import SafeImage from "./SafeImage";
 import { getTours } from "@/lib/data";
 import { getHomepageContent } from "@/lib/homepage";
 import { stripHtml } from "@/lib/seo";
+import { LockIcon } from "./icons";
 
 export default async function TourGrid() {
-  const [tours, homepage] = await Promise.all([getTours(), getHomepageContent()]);
+  const [toursRaw, homepage] = await Promise.all([getTours(), getHomepageContent()]);
   const s = homepage.sections.tours;
   const bookNowText = homepage.header.bookNowText || "Book Tickets";
+
+  // Recommended Tour (admin → Recommended Tour panel): pin the chosen tour
+  // first in the grid, matching the admin UI's own description of what
+  // toggling this on does.
+  const recommendedId = homepage.showFeaturedTour ? homepage.featuredTourId : "";
+  const tours = recommendedId
+    ? [...toursRaw].sort((a, b) => (a.id === recommendedId ? -1 : b.id === recommendedId ? 1 : 0))
+    : toursRaw;
 
   return (
     <section id="tours" className="py-16 sm:py-20 bg-[#FAFAF9]">
@@ -26,11 +35,13 @@ export default async function TourGrid() {
 
         {/* Ticket Cards Grid — one card per tour from the admin Tours list */}
         <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
-          {tours.map((tour) => (
+          {tours.map((tour) => {
+            const isRecommended = !!recommendedId && tour.id === recommendedId;
+            return (
             <div
               key={tour.id}
               className={`group flex flex-col overflow-hidden rounded-2xl bg-white transition-all duration-300 hover:-translate-y-1 ${
-                tour.featured
+                isRecommended || tour.featured
                   ? "border-2 border-[#D6A33A] shadow-lg shadow-[#D6A33A]/10 relative ring-1 ring-[#D6A33A]/20"
                   : "border border-gray-200 shadow-sm hover:shadow-lg hover:border-[#D6A33A]/40"
               }`}
@@ -46,11 +57,12 @@ export default async function TourGrid() {
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
                 />
 
-                {/* Ribbon Badge */}
-                {tour.ribbon && (
+                {/* Ribbon Badge — Recommended Tour badge takes priority over the
+                    tour's own ribbon text when this is the admin-picked tour */}
+                {(isRecommended || tour.ribbon) && (
                   <div className="absolute top-3 left-3 z-10 inline-flex items-center gap-1 rounded-md bg-[#D6A33A] px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-white shadow-md">
                     <span>👑</span>
-                    <span>{tour.ribbon}</span>
+                    <span>{isRecommended ? (homepage.featuredBadgeLabel || "Recommended") : tour.ribbon}</span>
                   </div>
                 )}
 
@@ -84,7 +96,7 @@ export default async function TourGrid() {
                     {tour.includes.map((feat, idx) => (
                       <div
                         key={idx}
-                        className="flex items-start gap-2 rounded-md bg-[#F7F3EA] px-2.5 py-1.5 text-[11.5px] text-[#26332B] border border-[#E9E1D3]"
+                        className="flex items-start gap-2 rounded-md bg-gray-50 px-2.5 py-1.5 text-[11.5px] text-[#26332B] border border-gray-100"
                       >
                         <span className="mt-0.5 text-[#123B27] font-bold shrink-0">✓</span>
                         <span className="leading-tight font-medium line-clamp-1">{feat}</span>
@@ -101,9 +113,21 @@ export default async function TourGrid() {
                   </div>
                 )}
 
+                {/* "Why we recommend this" — admin → Recommended Tour panel */}
+                {isRecommended && homepage.featuredReasons.filter(Boolean).length > 0 && (
+                  <div className="mt-3.5 rounded-xl bg-amber-50/50 border border-amber-200/60 p-3">
+                    {homepage.featuredReasons.filter(Boolean).slice(0, 2).map((reason) => (
+                      <p key={reason} className="flex items-start gap-1.5 text-[11px] leading-snug text-[#123B27] font-semibold">
+                        <span className="mt-0.5 text-[#D6A33A]">✓</span>
+                        {reason}
+                      </p>
+                    ))}
+                  </div>
+                )}
+
                 {/* Bottom Row: Price & CTA */}
                 <div className="mt-auto pt-4">
-                  <div className="flex items-center justify-between pt-3.5 border-t border-[#E9E1D3]">
+                  <div className="flex items-center justify-between pt-3.5 border-t border-gray-100">
                     <div>
                       <span className="block text-[9.5px] font-bold uppercase tracking-wider text-[#26332B]/70">
                         FROM
@@ -125,12 +149,18 @@ export default async function TourGrid() {
                       {bookNowText}
                     </a>
                   </div>
+                  {isRecommended && homepage.featuredUrgencyText && (
+                    <p className="mt-2.5 flex items-center gap-1 text-[11px] font-semibold text-[#D6A33A]">
+                      <LockIcon className="h-3 w-3" /> {homepage.featuredUrgencyText}
+                    </p>
+                  )}
                 </div>
               </div>
             </div>
-          ))}
-        </div>
+          );
+        })}
       </div>
-    </section>
-  );
+    </div>
+  </section>
+);
 }

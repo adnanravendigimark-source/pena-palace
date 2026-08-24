@@ -40,31 +40,31 @@ export default async function AboutPage() {
     <>
       <Header />
       <main className="bg-white">
-        {/* Hero banner — admin-editable (About page → Page title) */}
-        <section className="relative overflow-hidden bg-[#123B27] text-white">
-          <div className="absolute inset-0">
+        {/* Hero banner — matching header aesthetic */}
+        <section className="relative overflow-hidden bg-[#FAFAF9] border-b border-gray-100">
+          <div className="absolute inset-0 z-0 pointer-events-none">
             <SafeImage
-              src={about.heroImage || "https://commons.wikimedia.org/wiki/Special:FilePath/Image%20of%20Pena%20Palace%2C%20Sintra%2C%20Portugal.jpg"}
+              src={about.heroImage || "/images/pena-terrace.jpg"}
               alt={about.heroImageAlt || "Pena Palace, Sintra"}
               fill
               priority
-              quality={68}
+              quality={80}
               sizes="100vw"
-              className="object-cover object-center opacity-30"
+              className="object-cover object-center opacity-40"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#123B27] via-[#123B27]/80 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-b from-white/90 via-white/80 to-white/95" />
           </div>
 
-          <div className="relative mx-auto max-w-4xl px-4 py-16 text-center sm:px-6 sm:py-20">
-            <nav aria-label="Breadcrumb" className="text-xs font-medium text-[#DDE5D8]">
+          <div className="relative z-10 mx-auto max-w-4xl px-4 py-16 text-center sm:px-6 sm:py-20">
+            <nav aria-label="Breadcrumb" className="text-xs font-medium text-[#26332B]/70">
               <ol className="flex items-center justify-center gap-1.5">
                 <li>
                   <Link href="/" className="hover:text-[#D6A33A] transition-colors">
                     Home
                   </Link>
                 </li>
-                <li className="text-white/40">&gt;</li>
-                <li className="font-semibold text-white" aria-current="page">
+                <li className="text-[#26332B]/40">&gt;</li>
+                <li className="font-semibold text-[#123B27]" aria-current="page">
                   About Us
                 </li>
               </ol>
@@ -74,12 +74,12 @@ export default async function AboutPage() {
               {about.heroEyebrow}
             </span>
 
-            <h1 className="mt-2 font-serif text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl">
+            <h1 className="mt-2 font-serif text-3xl font-bold tracking-tight text-[#123B27] sm:text-4xl lg:text-5xl">
               {about.heroHeading}
             </h1>
 
             <div
-              className="rich-content rich-content-invert mx-auto mt-4 max-w-xl text-xs leading-relaxed text-[#DDE5D8] sm:text-sm"
+              className="rich-content mx-auto mt-4 max-w-2xl text-xs leading-relaxed text-[#26332B]/85 sm:text-sm"
               dangerouslySetInnerHTML={{ __html: about.heroSubheading }}
             />
           </div>
