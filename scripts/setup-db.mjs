@@ -443,7 +443,19 @@ async function seedPosts() {
         ${p.recommendedTourId || ""}, ${p.recommendedTourAfterBlock ?? null},
         ${JSON.stringify(p.content || [])}::jsonb, ${i}
       )
-      ON CONFLICT (slug) DO NOTHING
+      ON CONFLICT (slug) DO UPDATE SET
+        title = EXCLUDED.title,
+        meta_title = EXCLUDED.meta_title,
+        meta_description = EXCLUDED.meta_description,
+        category = EXCLUDED.category,
+        excerpt = EXCLUDED.excerpt,
+        quick_answer = EXCLUDED.quick_answer,
+        read_time = EXCLUDED.read_time,
+        date = EXCLUDED.date,
+        image = EXCLUDED.image,
+        image_alt = EXCLUDED.image_alt,
+        recommended_tour_id = EXCLUDED.recommended_tour_id,
+        content = EXCLUDED.content
     `;
   }
   console.log(`posts: seeded ${posts.length} row(s).`);
