@@ -15,13 +15,13 @@ export default async function FAQSection() {
   };
 
   return (
-    <section id="faq" className="py-16 sm:py-20 bg-[#FAF8F5] border-t border-[#EAE6DE]/70">
+    <section id="faq" className="py-16 sm:py-20 bg-[#F7F3EA] border-t border-[#E9E1D3]">
       <div className="mx-auto max-w-4xl px-4 sm:px-6">
         <div className="text-center max-w-xl mx-auto">
-          <p className="text-[11px] sm:text-xs font-bold tracking-[0.2em] uppercase text-[#B85D3E]">
+          <p className="text-[11px] sm:text-xs font-bold tracking-[0.2em] uppercase text-[#D6A33A]">
             {sections.faq.eyebrow || "FREQUENTLY ASKED QUESTIONS"}
           </p>
-          <h2 className="mt-2.5 font-serif text-2xl sm:text-3xl lg:text-[2.15rem] font-bold text-[#112338] tracking-tight">
+          <h2 className="mt-2.5 font-serif text-2xl sm:text-3xl lg:text-[2.15rem] font-bold text-[#123B27] tracking-tight">
             {sections.faq.heading || "Pena Palace Tickets & Sintra FAQs"}
           </h2>
         </div>

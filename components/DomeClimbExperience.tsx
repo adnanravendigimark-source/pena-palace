@@ -6,23 +6,23 @@ export default async function DomeClimbExperience() {
   const s = sections.tower;
 
   return (
-    <section id="dome-climb-experience" className="bg-white py-20 sm:py-24 border-y border-[#E9E1D3]/70">
+    <section id="palace-towers-experience" className="bg-white py-20 sm:py-24 border-y border-[#E9E1D3]/70">
       <div className="mx-auto grid max-w-7xl gap-12 px-4 sm:px-8 lg:grid-cols-2 lg:items-center">
         <div>
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-[#FDF7E9] px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-[#8C671A]">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-[#F7F3EA] border border-[#E9E1D3] px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-[#D6A33A]">
             <span>🏰</span> {s.eyebrow}
           </span>
           <h2 className="mt-3 font-serif text-2xl sm:text-3xl lg:text-[2.15rem] font-bold text-[#123B27] leading-[1.2] tracking-tight">
             {s.heading}
           </h2>
           <div
-            className="rich-content mt-4 text-sm text-[#4F5D53] leading-relaxed"
+            className="rich-content mt-4 text-sm text-[#26332B]/85 leading-relaxed"
             dangerouslySetInnerHTML={{ __html: s.body }}
           />
-          <ul className="mt-6 space-y-3.5 text-xs sm:text-sm font-medium text-[#123B27]">
+          <ul className="mt-6 space-y-3.5 text-xs sm:text-sm font-medium text-[#26332B]">
             {s.bullets.map((bullet, i) => (
               <li key={i} className="flex items-start gap-3">
-                <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#0D2E1E] text-white text-[10px] font-bold">
+                <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#123B27] text-white text-[10px] font-bold">
                   ✓
                 </span>
                 <span className="leading-snug">{bullet}</span>

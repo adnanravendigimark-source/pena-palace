@@ -85,6 +85,13 @@ export function generateMetadata(): Metadata {
     description:
       "Book official Pena Palace tickets with skip-the-line park and palace access. Bypass long lines with verified timed-entry passes to Sintra's colorful hilltop palace.",
     keywords: ["Pena Palace Tickets", "Sintra Tickets", "Pena Palace Skip the Line", "Pena Palace Guided Tour"],
+    icons: {
+      icon: [
+        { url: "/favicon.svg", type: "image/svg+xml" },
+        { url: "/icon", type: "image/png" },
+      ],
+      apple: "/apple-icon",
+    },
     alternates: {
       canonical: "/",
     },

@@ -68,8 +68,6 @@ async function createTables() {
       description TEXT NOT NULL,
       includes JSONB NOT NULL DEFAULT '[]',
       duration TEXT,
-      rating NUMERIC(2, 1) NOT NULL DEFAULT 5.0,
-      reviews INTEGER NOT NULL DEFAULT 0,
       price INTEGER NOT NULL DEFAULT 0,
       original_price INTEGER,
       image TEXT NOT NULL,
@@ -123,8 +121,6 @@ async function createTables() {
       hero_subheading TEXT NOT NULL DEFAULT '',
       hero_image TEXT NOT NULL DEFAULT '',
       hero_image_alt TEXT NOT NULL DEFAULT '',
-      rating_value TEXT NOT NULL DEFAULT '',
-      rating_count TEXT NOT NULL DEFAULT '',
       show_featured_tour BOOLEAN NOT NULL DEFAULT true,
       featured_tour_id TEXT NOT NULL DEFAULT '',
       featured_badge_label TEXT NOT NULL DEFAULT '',
@@ -267,6 +263,12 @@ async function addSeoColumns() {
 
   await sql`ALTER TABLE tours ADD COLUMN IF NOT EXISTS price_table_column1 TEXT NOT NULL DEFAULT ''`;
   await sql`ALTER TABLE tours ADD COLUMN IF NOT EXISTS price_table_feature TEXT NOT NULL DEFAULT ''`;
+  // This site publishes no fabricated review data — drop these columns if an
+  // earlier scaffold of this DB already created them with placeholder values.
+  await sql`ALTER TABLE tours DROP COLUMN IF EXISTS rating`;
+  await sql`ALTER TABLE tours DROP COLUMN IF EXISTS reviews`;
+  await sql`ALTER TABLE homepage DROP COLUMN IF EXISTS rating_value`;
+  await sql`ALTER TABLE homepage DROP COLUMN IF EXISTS rating_count`;
 
   await sql`ALTER TABLE about_page ADD COLUMN IF NOT EXISTS contact_prompt_html TEXT NOT NULL DEFAULT ''`;
   // About page redesign: the page now uses one flowing rich-text "content"
@@ -376,34 +378,29 @@ async function addMediaLibraryTable() {
 }
 
 async function seedTours() {
-  const [{ count }] = await sql`SELECT COUNT(*)::int AS count FROM tours`;
-  if (count > 0) {
-    console.log(`tours: already has ${count} row(s) — skipping seed.`);
-    return;
-  }
   const tours = readJsonFile("tours.json");
-  if (!tours || tours.length === 0) {
-    console.log("tours: no data/tours.json to seed from — skipping.");
-    return;
-  }
+  if (!tours || tours.length === 0) return;
+
   for (let i = 0; i < tours.length; i++) {
     const t = tours[i];
     await sql`
       INSERT INTO tours (
-        id, badge, ribbon, title, description, includes, duration, rating,
-        reviews, price, original_price, image, image_alt, href_path,
+        id, badge, ribbon, title, description, includes, duration,
+        price, original_price, image, image_alt, href_path,
         href_extra, featured, best_for, sort_order
       ) VALUES (
         ${t.id}, ${t.badge}, ${t.ribbon || null}, ${t.title}, ${t.description},
         ${JSON.stringify(t.includes || [])}::jsonb, ${t.duration || null},
-        ${t.rating ?? 5}, ${t.reviews ?? 0}, ${t.price ?? 0}, ${t.originalPrice ?? null},
+        ${t.price ?? 0}, ${t.originalPrice ?? null},
         ${t.image}, ${t.imageAlt}, ${t.hrefPath || t.href}, ${t.hrefExtra || null},
         ${!!t.featured}, ${t.bestFor || ""}, ${i}
       )
-      ON CONFLICT (id) DO NOTHING
+      ON CONFLICT (id) DO UPDATE SET
+        image = EXCLUDED.image,
+        image_alt = EXCLUDED.image_alt
     `;
   }
-  console.log(`tours: seeded ${tours.length} row(s).`);
+  console.log(`tours: synced ${tours.length} tour image(s).`);
 }
 
 async function seedPosts() {
@@ -444,31 +441,19 @@ async function seedPosts() {
 }
 
 async function seedHomepage() {
-  const [{ count }] = await sql`SELECT COUNT(*)::int AS count FROM homepage`;
-  if (count > 0) {
-    console.log("homepage: already configured — skipping seed.");
-    return;
-  }
   const h = readJsonFile("homepage.json");
-  if (!h) {
-    console.log("homepage: no data/homepage.json to seed from — inserting defaults.");
-    await sql`INSERT INTO homepage (id) VALUES (1) ON CONFLICT (id) DO NOTHING`;
-    return;
-  }
+  if (!h) return;
+
   await sql`
-    INSERT INTO homepage (
-      id, hero_badge, hero_heading, hero_subheading, hero_image, hero_image_alt,
-      rating_value, rating_count, show_featured_tour, featured_tour_id,
-      featured_badge_label, featured_urgency_text, featured_reasons
-    ) VALUES (
-      1, ${h.heroBadge || ""}, ${h.heroHeading || ""}, ${h.heroSubheading || ""},
-      ${h.heroImage || ""}, ${h.heroImageAlt || ""}, ${h.ratingValue || ""}, ${h.ratingCount || ""},
-      ${!!h.showFeaturedTour}, ${h.featuredTourId || ""}, ${h.featuredBadgeLabel || ""},
-      ${h.featuredUrgencyText || ""}, ${JSON.stringify(h.featuredReasons || [])}::jsonb
-    )
-    ON CONFLICT (id) DO NOTHING
+    UPDATE homepage SET
+      hero_badge = ${h.heroBadge || ""},
+      hero_heading = ${h.heroHeading || ""},
+      hero_subheading = ${h.heroSubheading || ""},
+      hero_image = ${h.heroImage || ""},
+      hero_image_alt = ${h.heroImageAlt || ""}
+    WHERE id = 1
   `;
-  console.log("homepage: seeded from data/homepage.json.");
+  console.log("homepage: updated hero copy & image from data/homepage.json.");
 }
 
 async function seedFaqs() {
@@ -551,7 +536,7 @@ async function seedSiteSettings() {
 
   if (existing) {
     await sql`UPDATE site_settings SET blog_meta_title = ${blogTitle}, blog_meta_description = ${blogDescription} WHERE id = 1`;
-    console.log("site_settings: healed mismatched Colosseum blog SEO copy with Florence copy.");
+    console.log("site_settings: healed mismatched Colosseum blog SEO copy with Pena Palace copy.");
     return;
   }
 
@@ -619,7 +604,7 @@ async function seedAboutPage() {
         meta_description = ${a.metaDescription}
       WHERE id = 1
     `;
-    console.log("about_page: healed mismatched/empty content with Florence About page copy.");
+    console.log("about_page: healed mismatched/empty content with Pena Palace About page copy.");
     return;
   }
 
@@ -638,12 +623,13 @@ async function seedAboutPage() {
 
 async function seedContactPage() {
   const rows = await sql`SELECT hero_heading, email FROM contact_page WHERE id = 1`;
-  // Matches DEFAULT_CONTACT in lib/contact.ts (already correctly Florence-
-  // branded — this seed previously still had leftover Colosseum Arena
-  // Entry copy, including a support@colosseumarenaentry.com email address,
-  // which is what a fresh install — or a row still carrying that copy —
-  // would show live. Heal that specific, provably-wrong case automatically;
-  // never touch a row that already has different, real admin content.
+  // Matches DEFAULT_CONTACT in lib/contact.ts (already correctly Pena
+  // Palace-branded — this seed previously still had leftover Colosseum
+  // Arena Entry copy, including a support@colosseumarenaentry.com email
+  // address, which is what a fresh install — or a row still carrying that
+  // copy — would show live. Heal that specific, provably-wrong case
+  // automatically; never touch a row that already has different, real
+  // admin content.
   const reasons = [
     { icon: "HeadsetIcon", title: "Ticket Selection Advice", body: "Need help choosing between the Park + Palace ticket, Park Only ticket, or a licensed guide-led tour? Ask our Sintra specialists." },
     { icon: "BriefcaseIcon", title: "Partnerships & Operators", body: "Licensed Portuguese tour operators, tourism authorities, and travel publishers — reach out regarding listings and collaborations." },
@@ -703,7 +689,7 @@ async function seedContactPage() {
         meta_description = ${c.metaDescription}
       WHERE id = 1
     `;
-    console.log("contact_page: healed mismatched Colosseum/Rome copy with Florence Contact page copy.");
+    console.log("contact_page: healed mismatched Colosseum/Rome copy with Pena Palace Contact page copy.");
     return;
   }
 

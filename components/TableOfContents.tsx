@@ -11,21 +11,20 @@ export default function TableOfContents({
   if (sections.length < 2) return null;
 
   return (
-    <div className="rounded-2xl border border-[#E8ECEF] bg-white p-5 shadow-sm">
-      <p className="font-serif text-xs font-bold uppercase tracking-wider text-[#112338]">
+    <div className="rounded-2xl border border-[#E9E1D3] bg-white p-5 shadow-sm">
+      <p className="font-serif text-xs font-bold uppercase tracking-wider text-[#123B27]">
         {label}
       </p>
-      <ol className="mt-3.5 space-y-2 border-l-2 border-[#E8ECEF] pl-3.5 text-xs">
+      <ol className="mt-3.5 space-y-2 border-l-2 border-[#E9E1D3] pl-3.5 text-xs">
         {sections.map((item, i) => {
-          // If the heading already has numbers like "1. Best Time", clean it or display cleanly
           const cleanText = item.text.replace(/^\d+\.\s*/, "");
           return (
             <li key={item.id}>
               <a
                 href={`#${item.id}`}
-                className="flex items-baseline gap-1.5 font-medium text-[#556476] transition hover:text-[#B85D3E]"
+                className="flex items-baseline gap-1.5 font-medium text-[#26332B]/80 transition hover:text-[#D6A33A]"
               >
-                <span aria-hidden="true" className="shrink-0 font-bold text-[#112338]">
+                <span aria-hidden="true" className="shrink-0 font-bold text-[#123B27]">
                   {i + 1}.
                 </span>
                 <span className="leading-snug">{cleanText}</span>

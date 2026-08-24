@@ -22,8 +22,8 @@ export interface TourRecord {
   description: string;
   includes: string[];
   duration?: string;
-  rating: number;
-  reviews: number;
+  rating?: number;
+  reviews?: number;
   price: number;
   originalPrice?: number;
   image: string;
@@ -66,8 +66,6 @@ function rowToTour(row: any): TourRecord {
     description: row.description,
     includes: parseJsonArray(row.includes),
     duration: row.duration || undefined,
-    rating: Number(row.rating),
-    reviews: Number(row.reviews),
     price: Number(row.price),
     originalPrice: row.original_price === null ? undefined : Number(row.original_price),
     image: row.image,
@@ -101,13 +99,13 @@ export async function insertTour(t: TourRecord): Promise<void> {
   const [{ count }] = await sql`SELECT count(*)::int AS count FROM tours`;
   await sql`
     INSERT INTO tours (
-      id, badge, ribbon, title, description, includes, duration, rating,
-      reviews, price, original_price, image, image_alt, href_path,
+      id, badge, ribbon, title, description, includes, duration,
+      price, original_price, image, image_alt, href_path,
       href_extra, featured, best_for, price_table_column1, price_table_feature, sort_order
     ) VALUES (
       ${t.id}, ${t.badge || "self-guided"}, ${t.ribbon || null}, ${t.title}, ${t.description},
-      ${JSON.stringify(t.includes || [])}::jsonb, ${t.duration || null}, ${t.rating},
-      ${t.reviews}, ${t.price}, ${t.originalPrice ?? null}, ${t.image}, ${t.imageAlt},
+      ${JSON.stringify(t.includes || [])}::jsonb, ${t.duration || null},
+      ${t.price}, ${t.originalPrice ?? null}, ${t.image}, ${t.imageAlt},
       ${t.hrefPath || t.href || ""}, ${t.hrefExtra || null}, ${!!t.featured}, ${t.bestFor || ""}, ${t.priceTableColumn1 || ""}, ${t.priceTableFeature || ""}, ${count as number}
     )
   `;
@@ -125,8 +123,6 @@ export async function updateTourRecord(id: string, t: TourRecord): Promise<void>
       description = ${t.description},
       includes = ${JSON.stringify(t.includes || [])}::jsonb,
       duration = ${t.duration || null},
-      rating = ${t.rating},
-      reviews = ${t.reviews},
       price = ${t.price},
       original_price = ${t.originalPrice ?? null},
       image = ${t.image},
@@ -152,13 +148,13 @@ export async function saveTours(records: TourRecord[]): Promise<void> {
     const t = records[i];
     await sql`
       INSERT INTO tours (
-        id, badge, ribbon, title, description, includes, duration, rating,
-        reviews, price, original_price, image, image_alt, href_path,
+        id, badge, ribbon, title, description, includes, duration,
+        price, original_price, image, image_alt, href_path,
         href_extra, featured, best_for, price_table_column1, price_table_feature, sort_order
       ) VALUES (
         ${t.id}, ${t.badge || "self-guided"}, ${t.ribbon || null}, ${t.title}, ${t.description},
-        ${JSON.stringify(t.includes || [])}::jsonb, ${t.duration || null}, ${t.rating},
-        ${t.reviews}, ${t.price}, ${t.originalPrice ?? null}, ${t.image}, ${t.imageAlt},
+        ${JSON.stringify(t.includes || [])}::jsonb, ${t.duration || null},
+        ${t.price}, ${t.originalPrice ?? null}, ${t.image}, ${t.imageAlt},
         ${t.hrefPath || t.href || ""}, ${t.hrefExtra || null}, ${!!t.featured}, ${t.bestFor || ""}, ${t.priceTableColumn1 || ""}, ${t.priceTableFeature || ""}, ${i}
       )
       ON CONFLICT (id) DO UPDATE SET
@@ -168,8 +164,6 @@ export async function saveTours(records: TourRecord[]): Promise<void> {
         description = EXCLUDED.description,
         includes = EXCLUDED.includes,
         duration = EXCLUDED.duration,
-        rating = EXCLUDED.rating,
-        reviews = EXCLUDED.reviews,
         price = EXCLUDED.price,
         original_price = EXCLUDED.original_price,
         image = EXCLUDED.image,

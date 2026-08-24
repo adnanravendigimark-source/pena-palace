@@ -5,15 +5,15 @@ export default async function CtaBanner() {
   const s = sections.ctaBanner;
 
   return (
-    <section className="py-14 sm:py-16 bg-white">
+    <section className="py-14 sm:py-16 bg-[#F7F3EA]">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <div className="relative overflow-hidden rounded-2xl bg-[#0B1B2B] px-6 py-8 sm:px-10 sm:py-10 shadow-xl shadow-black/15">
-          {/* Subtle Architectural Watermarks */}
+        <div className="relative overflow-hidden rounded-2xl bg-[#123B27] px-6 py-8 sm:px-10 sm:py-10 shadow-xl shadow-black/15 border border-[#0D2E1E]">
+          {/* Subtle Palace Gold Architectural Watermarks */}
           <div className="pointer-events-none absolute -left-10 -bottom-10 h-56 w-56 opacity-10">
             <svg
               viewBox="0 0 100 100"
               fill="none"
-              stroke="white"
+              stroke="#D6A33A"
               strokeWidth="2"
               className="h-full w-full"
             >
@@ -25,7 +25,7 @@ export default async function CtaBanner() {
             <svg
               viewBox="0 0 100 100"
               fill="none"
-              stroke="white"
+              stroke="#D6A33A"
               strokeWidth="2"
               className="h-full w-full"
             >
@@ -36,24 +36,18 @@ export default async function CtaBanner() {
           <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
             {/* Left Content */}
             <div className="flex items-center gap-4 sm:gap-5">
-              {/* Line Art Dome Icon */}
-              <div className="hidden sm:flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-white/10 text-white border border-white/15">
+              {/* Line Art Castle Icon */}
+              <div className="hidden sm:flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-white/10 text-[#D6A33A] border border-white/15">
                 <svg
-                  viewBox="0 0 44 44"
+                  viewBox="0 0 24 24"
                   fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6 text-white"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
+                  stroke="#D6A33A"
+                  strokeWidth="1.75"
                   strokeLinecap="round"
                   strokeLinejoin="round"
+                  className="h-6 w-6"
                 >
-                  <line x1="6" y1="36" x2="38" y2="36" strokeWidth="1.75" />
-                  <line x1="8" y1="33" x2="36" y2="33" />
-                  <path d="M8 33C9.5 22 17 14 22 12C27 14 34.5 22 36 33" strokeWidth="1.75" />
-                  <line x1="22" y1="12" x2="22" y2="33" strokeWidth="1.5" />
-                  <rect x="20" y="7" width="4" height="5" strokeWidth="1.25" />
-                  <line x1="22" y1="2" x2="22" y2="7" strokeWidth="1.5" />
+                  <path d="M4 22h16M7 22V14M17 22V14M12 22V14M4 14h16M12 4L4 14M12 4l8 10M12 2v2" />
                 </svg>
               </div>
 
@@ -61,7 +55,7 @@ export default async function CtaBanner() {
                 <h2 className="font-serif text-xl sm:text-2xl font-bold text-white tracking-tight">
                   {s.heading}
                 </h2>
-                <p className="mt-1 text-xs text-[#A0AEC0]">
+                <p className="mt-1 text-xs text-[#DDE5D8]">
                   {s.subtext}
                 </p>
               </div>
@@ -70,7 +64,7 @@ export default async function CtaBanner() {
             {/* Right Action Button */}
             <a
               href={s.buttonHref}
-              className="group inline-flex shrink-0 items-center justify-center gap-2 rounded-lg bg-white px-7 py-3 text-xs font-bold text-[#112338] shadow-md transition-all hover:bg-gray-100 hover:shadow-lg hover:-translate-y-0.5"
+              className="group inline-flex shrink-0 items-center justify-center gap-2 rounded-lg bg-[#D6A33A] px-7 py-3 text-xs font-bold text-white shadow-md transition-all hover:bg-[#B3841F] hover:shadow-lg hover:-translate-y-0.5"
             >
               <span>{s.buttonText}</span>
               <span className="transition-transform group-hover:translate-x-1">→</span>

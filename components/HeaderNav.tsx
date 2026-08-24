@@ -9,29 +9,30 @@ export default function HeaderNav({ links }: { links?: NavLink[] }) {
 
   const defaultLinks: NavLink[] = [
     { label: "Home", href: "/" },
-    { label: "Blog", href: "/blog" },
     { label: "About Us", href: "/about" },
-    { label: "Contact Us", href: "/contact" },
+    { label: "Blog", href: "/blog" },
+    { label: "Contact", href: "/contact" },
   ];
 
-  const navLinks = links && links.length ? links : defaultLinks;
+  // User requirement: Keep ONLY Home, About Us, Blog, and Contact in header
+  const navLinks = defaultLinks;
 
   return (
-    <nav className="hidden items-center gap-7 lg:flex">
+    <nav className="hidden items-center gap-8 md:flex">
       {navLinks.map((link) => {
         const isActive =
           link.href === "/"
             ? pathname === "/"
-            : pathname.startsWith(link.href) && link.href !== "/#tours";
+            : pathname.startsWith(link.href);
 
         return (
           <Link
             key={link.href + link.label}
             href={link.href}
-            className={`relative py-1 text-[13px] font-medium transition-colors ${
+            className={`relative py-1 text-[14px] font-medium transition-colors ${
               isActive
-                ? "text-[#112338] font-semibold after:absolute after:bottom-[-4px] after:left-0 after:right-0 after:h-[2px] after:bg-[#112338]"
-                : "text-[#4A5568] hover:text-[#112338]"
+                ? "text-[#D6A33A] font-semibold after:absolute after:bottom-[-6px] after:left-0 after:right-0 after:h-[2px] after:rounded-full after:bg-[#D6A33A]"
+                : "text-[#1F5135] hover:text-[#D6A33A]"
             }`}
           >
             {link.label}

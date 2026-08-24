@@ -10,7 +10,7 @@ import { CalendarIcon, ClockPayIcon, TicketIcon } from "@/components/icons";
 import { getPost, getPosts } from "@/lib/posts";
 import { getHomepageContent } from "@/lib/homepage";
 import { getRedirectTarget } from "@/lib/redirects";
-import { resolveRobots, resolveCanonical, resolveOg, buildArticleJsonLd } from "@/lib/seo";
+import { resolveRobots, resolveCanonical, resolveOg, buildArticleJsonLd, buildBreadcrumbJsonLd } from "@/lib/seo";
 import { SITE_URL } from "@/lib/site";
 import { extractTableOfContents } from "@/lib/tableOfContents";
 
@@ -89,6 +89,12 @@ export default async function Post({ params }: { params: { slug: string } }) {
     siteName: "Pena Palace Tickets",
   });
 
+  const breadcrumbJsonLd = buildBreadcrumbJsonLd([
+    { name: "Home", path: "/" },
+    { name: "Blog", path: "/blog" },
+    { name: post.title, path: `/blog/${post.slug}` },
+  ]);
+
   const { toc: headingToc, html: contentHtml } = extractTableOfContents(post.content);
   const toc = headingToc;
   const author = getAuthorParts(post.author);
@@ -97,24 +103,24 @@ export default async function Post({ params }: { params: { slug: string } }) {
   return (
     <>
       <Header />
-      <main className="min-h-screen bg-[#FAF8F5]">
+      <main className="min-h-screen bg-[#F7F3EA]">
         <div className="mx-auto max-w-6xl px-4 pt-6 sm:px-6">
           {/* Breadcrumbs */}
-          <nav aria-label="Breadcrumb" className="text-xs font-medium text-[#556476]">
+          <nav aria-label="Breadcrumb" className="text-xs font-medium text-[#26332B]/80">
             <ol className="flex flex-wrap items-center gap-1.5">
               <li>
-                <Link href="/" className="hover:text-[#B85D3E] transition-colors">
+                <Link href="/" className="hover:text-[#D6A33A] transition-colors">
                   Home
                 </Link>
               </li>
-              <li className="text-[#94A3B8]">&gt;</li>
+              <li className="text-[#26332B]/40">&gt;</li>
               <li>
-                <Link href="/blog" className="hover:text-[#B85D3E] transition-colors">
+                <Link href="/blog" className="hover:text-[#D6A33A] transition-colors">
                   Blog
                 </Link>
               </li>
-              <li className="text-[#94A3B8]">&gt;</li>
-              <li className="font-semibold text-[#112338] line-clamp-1" aria-current="page">
+              <li className="text-[#26332B]/40">&gt;</li>
+              <li className="font-semibold text-[#123B27] line-clamp-1" aria-current="page">
                 {post.title}
               </li>
             </ol>
@@ -122,40 +128,40 @@ export default async function Post({ params }: { params: { slug: string } }) {
 
           {/* Post Header */}
           <div className="mt-5">
-            <span className="inline-block rounded-md bg-white border border-[#ECE8DE] px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-[#B85D3E] shadow-sm">
+            <span className="inline-block rounded-md bg-white border border-[#E9E1D3] px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-[#D6A33A] shadow-sm">
               {post.category}
             </span>
 
-            <h1 className="mt-3.5 font-serif text-3xl font-bold leading-tight text-[#112338] sm:text-4xl lg:text-5xl">
+            <h1 className="mt-3.5 font-serif text-3xl font-bold leading-tight text-[#123B27] sm:text-4xl lg:text-5xl">
               {post.title}
             </h1>
 
             {post.excerpt && (
-              <p className="mt-3.5 max-w-3xl text-sm leading-relaxed text-[#556476] sm:text-base">
+              <p className="mt-3.5 max-w-3xl text-sm leading-relaxed text-[#26332B]/80 sm:text-base">
                 {post.excerpt}
               </p>
             )}
 
             {/* Author Meta Row */}
-            <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs font-medium text-[#556476]">
+            <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs font-medium text-[#26332B]/80">
               <span className="inline-flex items-center gap-1.5">
-                <CalendarIcon className="h-4 w-4 text-[#B85D3E]" />
+                <CalendarIcon className="h-4 w-4 text-[#D6A33A]" />
                 {formatDate(post.date)}
               </span>
               <span className="inline-flex items-center gap-1.5">
-                <ClockPayIcon className="h-4 w-4 text-[#B85D3E]" />
+                <ClockPayIcon className="h-4 w-4 text-[#D6A33A]" />
                 {post.readTime}
               </span>
               <span className="inline-flex items-center gap-2">
-                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#B85D3E] text-[10px] font-bold text-white">
+                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#123B27] text-[10px] font-bold text-white">
                   {author.initials}
                 </span>
-                <span className="font-semibold text-[#112338]">By {author.name}</span>
+                <span className="font-semibold text-[#123B27]">By {author.name}</span>
               </span>
             </div>
 
             {/* Hero Cover Image */}
-            <div className="relative mt-6 aspect-[16/9] sm:aspect-[21/10] w-full overflow-hidden rounded-2xl border border-[#E8ECEF] shadow-sm bg-[#0B1B2B]">
+            <div className="relative mt-6 aspect-[16/9] sm:aspect-[21/10] w-full overflow-hidden rounded-2xl border border-[#E9E1D3] shadow-sm bg-[#123B27]">
               <SafeImage
                 src={post.image}
                 alt={post.imageAlt || post.title}
@@ -179,16 +185,16 @@ export default async function Post({ params }: { params: { slug: string } }) {
               />
 
               {/* Bottom Article CTA Card */}
-              <div className="mt-12 flex flex-col items-center justify-between gap-5 rounded-2xl bg-[#0B1B2B] p-6 text-center text-white sm:flex-row sm:text-left shadow-md">
+              <div className="mt-12 flex flex-col items-center justify-between gap-5 rounded-2xl bg-[#123B27] p-6 text-center text-white sm:flex-row sm:text-left shadow-md border border-[#0D2E1E]">
                 <div className="flex items-center gap-4">
-                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-white/10 text-white border border-white/15 shadow-sm">
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-white/10 text-[#D6A33A] border border-white/15 shadow-sm">
                     <TicketIcon className="h-6 w-6" />
                   </div>
                   <div>
                     <p className="font-serif text-base font-bold text-white">
                       Ready to Explore Pena Palace?
                     </p>
-                    <p className="mt-0.5 text-xs text-[#CBD5E1]">
+                    <p className="mt-0.5 text-xs text-[#DDE5D8]">
                       Compare passes and secure guaranteed timed entry tickets online.
                     </p>
                   </div>
@@ -196,7 +202,7 @@ export default async function Post({ params }: { params: { slug: string } }) {
 
                 <a
                   href="/#tours"
-                  className="inline-flex shrink-0 items-center gap-1.5 rounded-lg bg-white px-5 py-2.5 text-xs font-bold text-[#112338] shadow-sm transition hover:bg-gray-100 hover:scale-[1.02]"
+                  className="inline-flex shrink-0 items-center gap-1.5 rounded-lg bg-[#D6A33A] px-5 py-2.5 text-xs font-bold text-white shadow-sm transition hover:bg-[#B3841F] hover:scale-[1.02]"
                 >
                   Compare Pena Palace Tickets →
                 </a>
@@ -217,6 +223,7 @@ export default async function Post({ params }: { params: { slug: string } }) {
       </main>
       <Footer />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
     </>
   );
 }

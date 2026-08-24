@@ -46,7 +46,7 @@ const CONTENT_SECTIONS = [
   { id: "sec-hero", label: "Hero" },
   { id: "sec-tourgrid", label: "Tour Grid" },
   { id: "sec-why", label: "What You See" },
-  { id: "sec-tower", label: "Dome Climb Deep-Dive" },
+  { id: "sec-tower", label: "Palace Towers & Terraces" },
   { id: "sec-practical", label: "Practical Info" },
   { id: "sec-price", label: "Price Comparison" },
   { id: "sec-ctabanner", label: "Bottom CTA Banner" },
@@ -395,14 +395,6 @@ export default function HomepageForm({ initial, tours }: { initial: HomepageCont
               <RichTextEditor value={content.heroSubheading} onChange={(html) => update("heroSubheading", html)} minHeight="4rem" />
             </Field>
             <div className="grid gap-5 sm:grid-cols-2">
-              <Field label="Rating value" hint="e.g. 4.8 / 5">
-                <input value={content.ratingValue} onChange={(e) => update("ratingValue", e.target.value)} className={inputClass} />
-              </Field>
-              <Field label="Rating count label" hint="e.g. 1,200+ reviews">
-                <input value={content.ratingCount} onChange={(e) => update("ratingCount", e.target.value)} className={inputClass} />
-              </Field>
-            </div>
-            <div className="grid gap-5 sm:grid-cols-2">
               <Field label="Primary button text">
                 <input value={content.heroCtaPrimaryText} onChange={(e) => update("heroCtaPrimaryText", e.target.value)} className={inputClass} />
               </Field>
@@ -540,8 +532,8 @@ export default function HomepageForm({ initial, tours }: { initial: HomepageCont
 
           <SectionCard
             id="sec-tower"
-            title="Dome Climb Deep-Dive section"
-            description="A second, image-heavy spotlight on the dome climb, right below “What You See”. Photos live on the Images tab."
+            title="Palace Towers & Terraces section"
+            description="A second, image-heavy spotlight on the palace's towers and terraces, right below “What You See”. Photos live on the Images tab."
             open={!!openSections["sec-tower"]}
             onToggle={() => toggleSection("sec-tower")}
           >
@@ -649,7 +641,7 @@ export default function HomepageForm({ initial, tours }: { initial: HomepageCont
               <Field label="Column 1" hint={'e.g. "Validity" — set per tour via its "Price table: Duration" field, or leave blank to use the tour\'s own Duration field.'}>
                 <input value={content.sections.price.column1Label} onChange={(e) => updatePrice({ column1Label: e.target.value })} className={inputClass} />
               </Field>
-              <Field label="Column 2" hint='e.g. "Dome Climb Access" — set per tour via its "Price table: Dome Climb Access" field.'>
+              <Field label="Column 2" hint='e.g. "Palace Interior Access" — set per tour via its "Price table: Palace Interior Access" field.'>
                 <input value={content.sections.price.column2Label} onChange={(e) => updatePrice({ column2Label: e.target.value })} className={inputClass} />
               </Field>
               <Field label="Column: best for" hint='e.g. "Best For"'>
@@ -693,7 +685,7 @@ export default function HomepageForm({ initial, tours }: { initial: HomepageCont
                           <td className="px-3 py-2 text-stone-700">€{tour.price}</td>
                           <td className="px-3 py-2 text-stone-700">{tour.priceTableColumn1 || tour.duration}</td>
                           <td className="px-3 py-2 text-stone-700">
-                            {tour.priceTableFeature || (tour.id.includes("dome") ? "✅ Timed Dome Climb" : "Standard Pass")}
+                            {tour.priceTableFeature || "Standard Pass"}
                           </td>
                           <td className="px-3 py-2 text-stone-700">{tour.bestFor}</td>
                           <td className="px-3 py-2 text-right">
@@ -993,7 +985,7 @@ export default function HomepageForm({ initial, tours }: { initial: HomepageCont
                 )}
               </div>
               <div className="bg-stone-50 p-3">
-                <p className="truncate text-xs uppercase tracking-wide text-stone-400">florenceduomotickets.com</p>
+                <p className="truncate text-xs uppercase tracking-wide text-stone-400">penapalacetickets.com</p>
                 <p className="mt-0.5 truncate text-sm font-semibold text-stone-900">{content.ogTitle || content.metaTitle || content.heroHeading}</p>
                 <p className="mt-0.5 line-clamp-2 text-xs text-stone-500">{(content.ogDescription || content.metaDescription || content.heroSubheading).replace(/<[^>]+>/g, "")}</p>
               </div>
@@ -1045,7 +1037,7 @@ export default function HomepageForm({ initial, tours }: { initial: HomepageCont
             </Field>
           </SectionCard>
 
-          <SectionCard title="Dome Climb experience photos" description="The 2×2 photo grid in the Dome Climb Deep-Dive section.">
+          <SectionCard title="Palace Towers & Terraces photos" description="The 2×2 photo grid in the Palace Towers & Terraces section.">
             <RepeatableList<GalleryImage>
               items={content.sections.tower.images}
               onChange={(images) => updateTower({ images })}

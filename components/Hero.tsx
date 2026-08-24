@@ -1,121 +1,81 @@
 import SafeImage from "./SafeImage";
 import { getHomepageContent } from "@/lib/homepage";
 
-// Purely decorative icons for the feature strip — cycled by index so the
-// strip still renders correctly no matter how many admin-editable feature
-// cards are configured.
-const HERO_FEATURE_ICONS = [
-  <svg key="ticket" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" className="h-5 w-5">
-    <path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2z" />
-    <path d="M13 5v2M13 17v2M13 11v2" />
-  </svg>,
-  <svg key="clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" className="h-5 w-5">
-    <circle cx="12" cy="12" r="10" />
-    <polyline points="12 6 12 12 16 14" />
-  </svg>,
-  <svg key="dome" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" className="h-5 w-5">
-    <path d="M4 22h16M7 22V14M17 22V14M12 22V14M4 14h16M12 4L4 14M12 4l8 10M12 2v2" strokeLinecap="round" strokeLinejoin="round" />
-  </svg>,
-  <svg key="support" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" className="h-5 w-5">
-    <path d="M3 18v-6a9 9 0 0 1 18 0v6" />
-    <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z" />
-  </svg>,
-];
-
 export default async function Hero() {
   const content = await getHomepageContent();
 
+  const heroImageSrc = content.heroImage || "/images/pena-palace-hero.jpg";
+
   return (
-    <section className="relative w-full bg-[#FAF8F5] overflow-hidden">
-      {/* Full-bleed Panoramic Background Image — admin-editable (Hero photo) */}
+    <section className="relative w-full min-h-screen min-h-[100dvh] flex flex-col justify-center bg-[#F7F3EA] overflow-hidden">
+      {/* Full-bleed Panoramic Background Image */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         {content.heroVideo ? (
           // eslint-disable-next-line jsx-a11y/media-has-caption
           <video
             src={content.heroVideo}
-            poster={content.heroImage || undefined}
+            poster={heroImageSrc}
             autoPlay
             muted
             loop
             playsInline
-            className="absolute inset-0 h-full w-full object-cover object-[75%_top] sm:object-right-top lg:object-right"
+            className="absolute inset-0 h-full w-full object-cover object-[78%_center] sm:object-right-center lg:object-right"
           />
         ) : (
           <SafeImage
-            src={content.heroImage}
-            alt={content.heroImageAlt}
+            src={heroImageSrc}
+            alt={content.heroImageAlt || "Pena Palace's iconic yellow and red towers in Sintra, Portugal"}
             fill
             priority
-            quality={68}
+            quality={95}
             sizes="100vw"
-            className="object-cover object-[75%_top] sm:object-right-top lg:object-right"
+            className="object-cover object-[80%_center] md:object-[78%_center] lg:object-right"
           />
         )}
-        {/* Responsive Gradient overlay ensuring text readability and seamless left fade */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#FAF8F5] via-[#FAF8F5]/90 via-40% lg:via-50% to-transparent" />
-        <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#FAF8F5] to-transparent" />
+        {/* Atmospheric gradient overlay ensuring crystal-clear text readability on mobile and desktop */}
+        <div className="absolute inset-0 bg-gradient-to-b from-white/95 via-white/85 via-50% to-white/30 sm:bg-gradient-to-r sm:from-white/95 sm:via-white/75 sm:via-45% md:from-white/90 md:via-white/50 md:via-50% lg:via-52% md:to-transparent" />
       </div>
 
-      {/* Hero Content Layer */}
-      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-8 pt-8 sm:pt-10 lg:pt-14 pb-12 lg:pb-16">
-        <div className="max-w-xl">
-          {/* Top Eyebrow Tag */}
-          <p className="text-[11px] sm:text-xs font-bold tracking-[0.18em] uppercase text-[#B85D3E]">
-            {content.heroBadge}
+      {/* Hero Content Layer (positioned comfortably below header) */}
+      <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-8 pt-16 sm:pt-24 lg:pt-32 pb-16 sm:pb-24 lg:pb-32 flex-1 flex flex-col justify-center">
+        <div className="max-w-xl lg:max-w-2xl mt-4 sm:mt-6 lg:mt-8">
+          {/* Top Eyebrow in Palace Gold */}
+          <p className="text-xs sm:text-[13px] font-bold tracking-[0.18em] uppercase text-[#D6A33A]">
+            {content.heroBadge || "PENA PALACE TICKETS"}
           </p>
 
           {/* Main Headline */}
-          <h1 className="mt-3 font-serif text-3xl sm:text-4xl lg:text-[2.85rem] font-bold leading-[1.14] tracking-tight text-[#112338]">
-            {content.heroHeading}
+          <h1 className="mt-3 font-serif text-3xl sm:text-4xl md:text-5xl lg:text-[54px] font-bold leading-[1.12] tracking-tight text-[#123B27]">
+            {content.heroHeading || "Discover Sintra’s Most Iconic Palace"}
           </h1>
 
-          {/* Short Terracotta Accent Line */}
-          <div className="mt-3.5 mb-5 h-[2.5px] w-10 rounded-full bg-[#B85D3E]" />
+          {/* Palace Gold Accent Line */}
+          <div className="mt-3.5 mb-5 h-[2.5px] w-12 rounded-full bg-[#D6A33A]" />
 
           {/* Subtitle */}
-          <div
-            className="rich-content text-xs sm:text-sm text-[#556476] leading-relaxed max-w-md"
-            dangerouslySetInnerHTML={{ __html: content.heroSubheading }}
-          />
+          <p className="text-sm sm:text-base text-[#26332B] leading-relaxed max-w-lg font-normal">
+            Book your Pena Palace tickets in advance and explore one of Portugal&apos;s 7 Wonders. Breathtaking views, romantic architecture, and unforgettable experiences await you.
+          </p>
 
           {/* Action Buttons */}
-          <div className="mt-6 flex flex-wrap items-center gap-3.5">
+          <div className="mt-7 flex flex-wrap items-center gap-3.5 sm:gap-4">
             <a
-              href={content.heroCtaPrimaryHref}
-              className="group inline-flex items-center justify-center gap-2 rounded-lg bg-[#112338] px-6 py-3 text-xs font-semibold text-white shadow-md transition-all hover:bg-[#1a3452] hover:shadow-lg hover:-translate-y-0.5"
+              href={content.heroCtaPrimaryHref || "#tours"}
+              className="group inline-flex items-center justify-center gap-2 rounded-lg bg-[#123B27] px-6 py-3.5 text-xs sm:text-sm font-semibold text-white shadow-sm transition-all hover:bg-[#0D2E1E] hover:shadow-md hover:-translate-y-0.5"
             >
-              <span>{content.heroCtaPrimaryText}</span>
+              <span>{content.heroCtaPrimaryText || "Book Tickets Now"}</span>
               <span className="transition-transform group-hover:translate-x-1">→</span>
             </a>
 
             <a
-              href={content.heroCtaSecondaryHref}
-              className="group inline-flex items-center justify-center gap-2 rounded-lg border border-[#CBD5E1] bg-white/95 backdrop-blur-sm px-6 py-3 text-xs font-semibold text-[#112338] shadow-sm transition-all hover:bg-white hover:border-[#94A3B8] hover:-translate-y-0.5"
+              href={content.heroCtaSecondaryHref || "#tours"}
+              className="group inline-flex items-center justify-center gap-2 rounded-lg border border-[#26332B]/30 bg-white/40 md:bg-transparent px-6 py-3.5 text-xs sm:text-sm font-semibold text-[#26332B] transition-all hover:bg-white/80 hover:border-[#26332B]/50 hover:-translate-y-0.5"
             >
-              <span>{content.heroCtaSecondaryText}</span>
+              <span>{content.heroCtaSecondaryText || "Explore Tours"}</span>
               <span className="transition-transform group-hover:translate-x-1">→</span>
             </a>
           </div>
         </div>
-
-        {/* Floating Key Features Strip Bar — admin-editable (Hero feature strip) */}
-        {content.heroFeatures.length > 0 && (
-          <div className="mt-10 lg:mt-14 rounded-2xl bg-white/95 backdrop-blur-md p-5 sm:p-6 shadow-xl shadow-black/[0.04] border border-[#EBECEF]">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6 divide-y sm:divide-y-0 sm:divide-x divide-gray-100">
-              {content.heroFeatures.map((feature, i) => (
-                <div key={i} className="flex items-center gap-3.5 pt-3.5 sm:pt-0 sm:px-3 first:pt-0 first:px-0">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#FAF8F5] text-[#112338] border border-[#ECE8DE]">
-                    {HERO_FEATURE_ICONS[i % HERO_FEATURE_ICONS.length]}
-                  </div>
-                  <div>
-                    <h2 className="text-xs sm:text-[13px] font-bold text-[#112338]">{feature.title}</h2>
-                    {feature.subtitle && <p className="text-[11px] text-[#718096]">{feature.subtitle}</p>}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
       </div>
     </section>
   );

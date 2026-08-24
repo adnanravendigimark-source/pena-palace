@@ -58,8 +58,6 @@ export default function TourForm({
     const payload: TourRecord = {
       ...tour,
       includes: includesText.split("\n").map((s) => s.trim()).filter(Boolean),
-      rating: Number(tour.rating),
-      reviews: Number(tour.reviews),
       price: Number(tour.price),
       originalPrice: tour.originalPrice ? Number(tour.originalPrice) : undefined,
     };
@@ -171,31 +169,7 @@ export default function TourForm({
         </div>
       </div>
 
-      <div className="grid gap-5 sm:grid-cols-4">
-        <div>
-          <label className={labelClass}>Rating</label>
-          <input
-            type="number"
-            step="0.1"
-            min="0"
-            max="5"
-            required
-            value={tour.rating}
-            onChange={(e) => update("rating", Number(e.target.value) as unknown as number)}
-            className={inputClass}
-          />
-        </div>
-        <div>
-          <label className={labelClass}>Review count</label>
-          <input
-            type="number"
-            min="0"
-            required
-            value={tour.reviews}
-            onChange={(e) => update("reviews", Number(e.target.value) as unknown as number)}
-            className={inputClass}
-          />
-        </div>
+      <div className="grid gap-5 sm:grid-cols-2">
         <div>
           <label className={labelClass}>Price (€)</label>
           <input
@@ -283,16 +257,16 @@ export default function TourForm({
       </div>
 
       <div>
-        <label className={labelClass}>Price table: "Dome Climb Access" column (optional)</label>
+        <label className={labelClass}>Price table: "Palace Interior Access" column (optional)</label>
         <input
           value={tour.priceTableFeature || ""}
           onChange={(e) => update("priceTableFeature", e.target.value)}
           className={inputClass}
-          placeholder="e.g. ✅ Timed Dome Climb"
+          placeholder="e.g. ✅ Full Palace Interior Access"
         />
         <p className="mt-1 text-xs text-stone-500">
-          Shown in the homepage price-comparison table's "Dome Climb Access" column for this tour. Leave
-          blank to auto-fill "✅ Timed Dome Climb" (if the tour ID contains "dome") or "Standard Pass".
+          Shown in the homepage price-comparison table's "Palace Interior Access" column for this tour.
+          Leave blank to show "Standard Pass".
         </p>
       </div>
 

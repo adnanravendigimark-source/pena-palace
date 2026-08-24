@@ -207,8 +207,6 @@ export interface HomepageContent {
   heroCtaPrimaryHref: string;
   heroCtaSecondaryText: string;
   heroCtaSecondaryHref: string;
-  ratingValue: string;
-  ratingCount: string;
   showFeaturedTour: boolean;
   featuredTourId: string;
   featuredBadgeLabel: string;
@@ -231,18 +229,18 @@ export interface HomepageContent {
 
 export const DEFAULT_HEADER: HeaderContent = {
   logoImage: "",
-  logoAlt: "Pena Palace Tickets & Tours",
+  logoAlt: "Pena Palace Tickets",
   logoLine1: "Pena Palace",
-  logoLine2: "Tickets & Tours",
-  bookNowText: "Book Tickets",
+  logoLine2: "— TICKETS —",
+  bookNowText: "BOOK TICKETS",
   navLinks: [
     { label: "Home", href: "/" },
     { label: "About Us", href: "/about" },
     { label: "Blog", href: "/blog" },
     { label: "Contact", href: "/contact" },
   ],
-  ctaText: "Book Palace Tickets",
-  ctaHref: "/#tours",
+  ctaText: "BOOK TICKETS",
+  ctaHref: "#tours",
 };
 
 export const DEFAULT_FOOTER: FooterContent = {
@@ -253,7 +251,7 @@ export const DEFAULT_FOOTER: FooterContent = {
       title: "Pena Palace Tickets & Passes",
       links: [
         { label: "Park + Palace Entry (All-Inclusive)", href: "/#tours" },
-        { label: "Skip-the-Line Priority Access", href: "/#dome-climb-experience" },
+        { label: "Skip-the-Line Priority Access", href: "/#palace-towers-experience" },
         { label: "Park Only Ticket (Gardens & Grounds)", href: "/#tours" },
         { label: "Pass Comparison & Prices", href: "/#prices" },
         { label: "Pena Palace Visitor FAQs", href: "/#faq" },
@@ -278,7 +276,7 @@ export const DEFAULT_FOOTER: FooterContent = {
 
 export const DEFAULT_THEME: ThemeColors = {
   primary: "#123B27",   // Deep Forest Green
-  secondary: "#8CA47F", // Soft Sage
+  secondary: "#1F5135", // Pine Green
   dark: "#26332B",      // Charcoal
   accent: "#D6A33A",    // Palace Gold
 };
@@ -412,24 +410,24 @@ export const DEFAULT_SECTIONS: HomepageSections = {
     ctaHref: "#tours",
     images: [
       {
-        src: "https://commons.wikimedia.org/wiki/Special:FilePath/Clock%20Tower%2C%20Pal%C3%A1cio%20Nacional%20da%20Pena%2C%20Sintra%2C%20Portugal%20(54842280545).jpg",
+        src: "/images/pena-tour-1.jpg",
         alt: "Colorful red and yellow towers and battlements of Pena Palace in Sintra",
         label: "Palace Towers",
       },
       {
-        src: "https://commons.wikimedia.org/wiki/Special:FilePath/Grand%20Palace%20Ballroom%20Interior%20(55256687864).jpg",
+        src: "/images/pena-tour-2.jpg",
         alt: "Ornate tiled courtyard and Moorish-influenced arches inside Pena Palace",
         label: "Tiled Courtyards",
       },
       {
-        src: "https://commons.wikimedia.org/wiki/Special:FilePath/Image%20of%20Pena%20Palace%2C%20Sintra%2C%20Portugal.jpg",
+        src: "/images/pena-sunset.jpg",
         alt: "Pena Palace at sunset overlooking the Sintra hills",
         label: "Palace at Sunset",
       },
       {
-        src: "https://commons.wikimedia.org/wiki/Special:FilePath/2011-04-21%20Portugal%20171%20-%20Sintra%20(5694882350).jpg",
-        alt: "Romantic garden path through Pena Park in Sintra",
-        label: "Pena Park Gardens",
+        src: "/images/pena-terrace.jpg",
+        alt: "Panoramic terrace view of Pena Palace and the Sintra coastline",
+        label: "Queen's Terrace",
       },
     ],
   },
@@ -504,27 +502,25 @@ export const DEFAULT_SECTIONS: HomepageSections = {
 };
 
 const DEFAULT_HOMEPAGE_CONTENT: HomepageContent = {
-  heroBadge: "PENA PALACE TICKETS | SKIP-THE-LINE ACCESS",
-  heroHeading: "Discover Sintra From Its Most Iconic View",
+  heroBadge: "PENA PALACE TICKETS",
+  heroHeading: "Discover Sintra's Most Iconic Palace",
   heroSubheading:
-    "<p>Official Pena Palace tickets with skip-the-line access. Skip the queue and experience the history, art and breathtaking views of Sintra.</p>",
-  heroImage: "https://commons.wikimedia.org/wiki/Special:FilePath/Image%20of%20Pena%20Palace%2C%20Sintra%2C%20Portugal.jpg",
-  heroImageAlt: "Pena Palace's colorful towers and the Sintra skyline",
+    "<p>Book your Pena Palace tickets in advance and explore one of Portugal's 7 Wonders. Breathtaking views, romantic architecture, and unforgettable experiences await you.</p>",
+  heroImage: "/images/pena-palace-hero.jpg",
+  heroImageAlt: "Pena Palace's iconic yellow dome and red romanticist towers overlooking the Sintra mountain landscape",
   heroVideo: "",
   heroGallery: DEFAULT_GALLERY,
   heroFeatures: DEFAULT_HERO_FEATURES,
-  heroCtaPrimaryText: "Explore Tickets",
+  heroCtaPrimaryText: "Book Tickets Now",
   heroCtaPrimaryHref: "#tours",
-  heroCtaSecondaryText: "Skip-the-Line Access",
+  heroCtaSecondaryText: "Explore Tours",
   heroCtaSecondaryHref: "#tours",
-  ratingValue: "4.8 / 5",
-  ratingCount: "21,600+ verified visitor reviews",
   showFeaturedTour: true,
   featuredTourId: "pena-palace-park-skip-the-line-entry",
   featuredBadgeLabel: "Most Popular Ticket",
   featuredUrgencyText: "Timed Entry Slots Sell Out 3–5 Days in Advance in Peak Season · Reserve Early",
   featuredReasons: [
-    "21,600+ verified reviews — rated 4.8 / 5 by international travelers",
+    "Guaranteed timed entry — no waiting in the box-office line at the park gate",
     "Guaranteed timed entry to Pena Palace's colorful Romanticist interior",
     "Includes full access to Pena Park's 200+ hectares of romantic gardens"
   ],
@@ -592,8 +588,6 @@ function rowToHomepage(row: any): HomepageContent {
     heroCtaPrimaryHref: row.hero_cta_primary_href || DEFAULT_HOMEPAGE_CONTENT.heroCtaPrimaryHref,
     heroCtaSecondaryText: row.hero_cta_secondary_text || DEFAULT_HOMEPAGE_CONTENT.heroCtaSecondaryText,
     heroCtaSecondaryHref: row.hero_cta_secondary_href || DEFAULT_HOMEPAGE_CONTENT.heroCtaSecondaryHref,
-    ratingValue: row.rating_value || DEFAULT_HOMEPAGE_CONTENT.ratingValue,
-    ratingCount: row.rating_count || DEFAULT_HOMEPAGE_CONTENT.ratingCount,
     showFeaturedTour: !!row.show_featured_tour,
     featuredTourId: row.featured_tour_id || DEFAULT_HOMEPAGE_CONTENT.featuredTourId,
     featuredBadgeLabel: row.featured_badge_label || DEFAULT_HOMEPAGE_CONTENT.featuredBadgeLabel,
@@ -664,8 +658,6 @@ export async function saveHomepageCopy(data: {
   heroCtaPrimaryHref: string;
   heroCtaSecondaryText: string;
   heroCtaSecondaryHref: string;
-  ratingValue: string;
-  ratingCount: string;
   metaTitle: string;
   metaDescription: string;
   focusKeyword: string;
@@ -679,7 +671,7 @@ export async function saveHomepageCopy(data: {
       id, hero_badge, hero_heading, hero_subheading, hero_image, hero_image_alt,
       hero_video, hero_gallery, hero_features, hero_cta_primary_text, hero_cta_primary_href,
       hero_cta_secondary_text, hero_cta_secondary_href,
-      rating_value, rating_count, meta_title, meta_description, focus_keyword,
+      meta_title, meta_description, focus_keyword,
       canonical_url, og_title, og_description, og_image
     ) VALUES (
       1, ${data.heroBadge}, ${data.heroHeading}, ${data.heroSubheading}, ${data.heroImage},
@@ -687,7 +679,6 @@ export async function saveHomepageCopy(data: {
       ${JSON.stringify(data.heroFeatures || [])}::jsonb,
       ${data.heroCtaPrimaryText || ""}, ${data.heroCtaPrimaryHref || ""},
       ${data.heroCtaSecondaryText || ""}, ${data.heroCtaSecondaryHref || ""},
-      ${data.ratingValue}, ${data.ratingCount},
       ${data.metaTitle || ""}, ${data.metaDescription || ""}, ${data.focusKeyword || ""},
       ${data.canonicalUrl || ""}, ${data.ogTitle || ""}, ${data.ogDescription || ""}, ${data.ogImage || ""}
     )
@@ -704,8 +695,6 @@ export async function saveHomepageCopy(data: {
       hero_cta_primary_href = EXCLUDED.hero_cta_primary_href,
       hero_cta_secondary_text = EXCLUDED.hero_cta_secondary_text,
       hero_cta_secondary_href = EXCLUDED.hero_cta_secondary_href,
-      rating_value = EXCLUDED.rating_value,
-      rating_count = EXCLUDED.rating_count,
       meta_title = EXCLUDED.meta_title,
       meta_description = EXCLUDED.meta_description,
       focus_keyword = EXCLUDED.focus_keyword,

@@ -30,36 +30,36 @@ export default async function ContactPage() {
   return (
     <>
       <Header />
-      <main className="bg-[#FAF8F5] min-h-screen py-16 sm:py-24">
+      <main className="bg-[#F7F3EA] min-h-screen py-16 sm:py-24">
         <div className="mx-auto max-w-3xl px-4 sm:px-6">
           <div className="text-center">
-            <span className="inline-block rounded-md bg-white border border-[#ECE8DE] px-3 py-1 text-xs font-bold uppercase tracking-wider text-[#B85D3E] shadow-sm">
+            <span className="inline-block rounded-md bg-white border border-[#E9E1D3] px-3 py-1 text-xs font-bold uppercase tracking-wider text-[#D6A33A] shadow-sm">
               {contact.heroEyebrow}
             </span>
-            <h1 className="mt-3 font-serif text-3xl font-bold text-[#112338] sm:text-4xl">
+            <h1 className="mt-3 font-serif text-3xl font-bold text-[#123B27] sm:text-4xl">
               {contact.heroHeading}
             </h1>
             <div
-              className="rich-content mx-auto mt-3 max-w-md text-[#556476] leading-relaxed text-sm sm:text-base"
+              className="rich-content mx-auto mt-3 max-w-md text-[#26332B]/80 leading-relaxed text-sm sm:text-base"
               dangerouslySetInnerHTML={{ __html: contact.heroSubheading }}
             />
           </div>
 
           {/* Primary email card */}
-          <div className="mt-10 flex flex-col items-center gap-3.5 rounded-2xl border border-[#E8ECEF] bg-white p-8 sm:p-10 text-center shadow-sm">
-            <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#0B1B2B] text-white shadow-md">
+          <div className="mt-10 flex flex-col items-center gap-3.5 rounded-2xl border border-[#E9E1D3] bg-white p-8 sm:p-10 text-center shadow-sm">
+            <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#123B27] text-white shadow-md">
               <MailIcon className="h-6 w-6" />
             </span>
             <div>
-              <p className="text-xs font-bold uppercase tracking-wider text-[#718096]">{contact.emailLabel}</p>
+              <p className="text-xs font-bold uppercase tracking-wider text-[#26332B]/60">{contact.emailLabel}</p>
               <a
                 href={`mailto:${contact.email}`}
-                className="mt-1 block break-all font-serif text-2xl font-bold text-[#112338] hover:text-[#B85D3E] transition-colors"
+                className="mt-1 block break-all font-serif text-2xl font-bold text-[#123B27] hover:text-[#D6A33A] transition-colors"
               >
                 {contact.email}
               </a>
             </div>
-            <p className="text-xs text-[#556476] max-w-sm">{contact.emailNote}</p>
+            <p className="text-xs text-[#26332B]/80 max-w-sm">{contact.emailNote}</p>
           </div>
 
           {/* What we can help with */}
@@ -67,13 +67,13 @@ export default async function ContactPage() {
             {contact.reasons.map(({ icon, title, body }) => {
               const Icon = getIconComponent(icon);
               return (
-                <div key={title} className="rounded-2xl border border-[#E8ECEF] bg-white p-5.5 shadow-sm text-center sm:text-left transition hover:shadow-md hover:border-[#CBD5E1]">
-                  <span className="mx-auto flex h-10 w-10 items-center justify-center rounded-xl bg-[#FAF8F5] border border-[#ECE8DE] text-[#112338] sm:mx-0">
+                <div key={title} className="rounded-2xl border border-[#E9E1D3] bg-white p-5.5 shadow-sm text-center sm:text-left transition hover:shadow-md hover:border-[#D6A33A]/40">
+                  <span className="mx-auto flex h-10 w-10 items-center justify-center rounded-xl bg-[#F7F3EA] border border-[#E9E1D3] text-[#123B27] sm:mx-0">
                     <Icon className="h-5 w-5" />
                   </span>
-                  <p className="mt-4 text-sm font-bold text-[#112338]">{title}</p>
+                  <p className="mt-4 text-sm font-bold text-[#123B27]">{title}</p>
                   <div
-                    className="rich-content mt-1.5 text-xs text-[#556476] leading-relaxed"
+                    className="rich-content mt-1.5 text-xs text-[#26332B]/80 leading-relaxed"
                     dangerouslySetInnerHTML={{ __html: body }}
                   />
                 </div>
@@ -82,15 +82,15 @@ export default async function ContactPage() {
           </div>
 
           <div
-            className="rich-content mt-10 border-t border-[#E8ECEF] pt-8 text-center text-xs sm:text-sm text-[#718096]"
+            className="rich-content mt-10 border-t border-[#E9E1D3] pt-8 text-center text-xs sm:text-sm text-[#26332B]/60"
             dangerouslySetInnerHTML={{ __html: contact.footerNote }}
           />
 
-          <div className="mt-8 flex flex-col items-center gap-4 rounded-2xl bg-[#0B1B2B] p-7 text-center text-white shadow-xl border border-[#112338]">
+          <div className="mt-8 flex flex-col items-center gap-4 rounded-2xl bg-[#123B27] p-7 text-center text-white shadow-xl border border-[#0D2E1E]">
             <p className="text-base font-bold text-white">{contact.ctaHeading}</p>
             <a
               href="/#tours"
-              className="rounded-lg bg-white px-6 py-2.5 text-xs font-bold text-[#112338] shadow-md transition hover:bg-gray-100 hover:scale-[1.02]"
+              className="rounded-lg bg-[#D6A33A] px-6 py-2.5 text-xs font-bold text-white shadow-md transition hover:bg-[#B3841F] hover:scale-[1.02]"
             >
               {contact.ctaButtonLabel} →
             </a>

@@ -44,11 +44,9 @@ export default async function HomePage() {
       // Google Search Console's Merchant listings check flags Product
       // structured data missing an "image" as a critical error.
       image: resolveAbsoluteUrl(t.image),
-      aggregateRating: {
-        "@type": "AggregateRating",
-        ratingValue: t.rating,
-        reviewCount: t.reviews,
-      },
+      // No aggregateRating block here on purpose — this site does not have
+      // real, verified review data to publish, and Google penalizes
+      // AggregateRating/Review structured data that can't be substantiated.
       offers: {
         "@type": "Offer",
         priceCurrency: "EUR",
