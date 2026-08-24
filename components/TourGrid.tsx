@@ -9,7 +9,7 @@ export default async function TourGrid() {
   const bookNowText = homepage.header.bookNowText || "Book Tickets";
 
   return (
-    <section id="tours" className="py-16 sm:py-20 bg-[#F7F3EA]">
+    <section id="tours" className="py-16 sm:py-20 bg-[#FAFAF9]">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         {/* Section Header — admin-editable (Tour Grid section) */}
         <div className="text-center max-w-2xl mx-auto">
@@ -32,7 +32,7 @@ export default async function TourGrid() {
               className={`group flex flex-col overflow-hidden rounded-2xl bg-white transition-all duration-300 hover:-translate-y-1 ${
                 tour.featured
                   ? "border-2 border-[#D6A33A] shadow-lg shadow-[#D6A33A]/10 relative ring-1 ring-[#D6A33A]/20"
-                  : "border border-[#E9E1D3] shadow-sm hover:shadow-lg hover:border-[#D6A33A]/40"
+                  : "border border-gray-200 shadow-sm hover:shadow-lg hover:border-[#D6A33A]/40"
               }`}
             >
               {/* Card Image & Overlay Badges */}
@@ -51,6 +51,15 @@ export default async function TourGrid() {
                   <div className="absolute top-3 left-3 z-10 inline-flex items-center gap-1 rounded-md bg-[#D6A33A] px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-white shadow-md">
                     <span>👑</span>
                     <span>{tour.ribbon}</span>
+                  </div>
+                )}
+
+                {/* Rating Badge Floating Bottom Left (placeholder until real reviews exist) */}
+                {tour.rating !== undefined && (
+                  <div className="absolute bottom-2.5 left-2.5 z-10 inline-flex items-center gap-1 rounded-md bg-white/95 backdrop-blur-md px-2.5 py-1 text-[11px] font-bold text-[#123B27] shadow-sm">
+                    <span className="text-[#00B67A]">★</span>
+                    <span>{tour.rating}</span>
+                    <span className="text-[#26332B]/70 font-normal">({tour.reviews})</span>
                   </div>
                 )}
               </div>

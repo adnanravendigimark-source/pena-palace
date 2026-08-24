@@ -6,12 +6,12 @@ export default async function WhatYouSee() {
   const s = sections.why;
 
   return (
-    <section className="py-20 sm:py-24 bg-[#F7F3EA] border-t border-[#E9E1D3]">
+    <section className="py-20 sm:py-24 bg-white border-t border-gray-100">
       <div className="mx-auto max-w-7xl px-4 sm:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           {/* Left Column: admin-editable photo (What You See section) */}
           <div className="lg:col-span-6">
-            <div className="relative aspect-[4/3] sm:aspect-[16/11] lg:aspect-[4/3] w-full overflow-hidden rounded-2xl sm:rounded-3xl shadow-xl shadow-black/10">
+            <div className="relative aspect-[4/3] sm:aspect-[16/11] lg:aspect-[4/3] w-full overflow-hidden rounded-2xl sm:rounded-3xl shadow-xl shadow-black/5">
               <SafeImage
                 src={s.image}
                 alt={s.imageAlt}
@@ -45,7 +45,7 @@ export default async function WhatYouSee() {
 
         {/* Sample visit timeline + architectural discoveries — admin-editable */}
         <div className="mt-16 grid gap-8 lg:grid-cols-2 lg:items-start">
-          <div className="rounded-2xl border border-[#E9E1D3] bg-white p-7 shadow-sm">
+          <div className="rounded-2xl border border-gray-200 bg-[#F9FAFB] p-7 shadow-sm">
             <h3 className="font-serif text-lg sm:text-xl font-bold text-[#123B27]">{s.timelineHeading}</h3>
             <ol className="mt-6 space-y-6 border-l-2 border-[#D6A33A]/40 pl-6">
               {s.timeline.map((row, i) => (
@@ -58,13 +58,13 @@ export default async function WhatYouSee() {
             </ol>
           </div>
 
-          <div className="rounded-2xl border border-[#E9E1D3] bg-white p-7 shadow-sm">
+          <div className="rounded-2xl border border-gray-200 bg-[#F9FAFB] p-7 shadow-sm">
             <h3 className="font-serif text-lg sm:text-xl font-bold text-[#123B27]">{s.learnHeading}</h3>
             <ul className="mt-5 space-y-3">
               {s.learn.map((item, i) => (
                 <li
                   key={i}
-                  className="flex items-start gap-3 rounded-xl border border-[#E9E1D3] bg-[#F7F3EA] p-3.5 text-sm text-[#26332B]"
+                  className="flex items-start gap-3 rounded-xl border border-gray-200 bg-white p-3.5 text-sm text-[#26332B]"
                 >
                   <span className="font-bold text-[#D6A33A]">◆</span>
                   <span>{item}</span>

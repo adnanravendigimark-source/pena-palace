@@ -58,6 +58,8 @@ export default function TourForm({
     const payload: TourRecord = {
       ...tour,
       includes: includesText.split("\n").map((s) => s.trim()).filter(Boolean),
+      rating: Number(tour.rating ?? 4.5),
+      reviews: Number(tour.reviews ?? 0),
       price: Number(tour.price),
       originalPrice: tour.originalPrice ? Number(tour.originalPrice) : undefined,
     };
@@ -169,7 +171,36 @@ export default function TourForm({
         </div>
       </div>
 
-      <div className="grid gap-5 sm:grid-cols-2">
+      <div className="rounded-lg border border-amber-300 bg-amber-50 px-3 py-2 text-xs text-amber-800">
+        ⚠️ Rating and review count below are placeholders — replace with real numbers once this
+        tour has verified reviews. They are shown as UI only and are not published in structured
+        data (Google-indexed schema), so they carry no search-engine risk as-is.
+      </div>
+      <div className="grid gap-5 sm:grid-cols-4">
+        <div>
+          <label className={labelClass}>Rating (placeholder)</label>
+          <input
+            type="number"
+            step="0.1"
+            min="0"
+            max="5"
+            required
+            value={tour.rating ?? 4.5}
+            onChange={(e) => update("rating", Number(e.target.value) as unknown as number)}
+            className={inputClass}
+          />
+        </div>
+        <div>
+          <label className={labelClass}>Review count (placeholder)</label>
+          <input
+            type="number"
+            min="0"
+            required
+            value={tour.reviews ?? 0}
+            onChange={(e) => update("reviews", Number(e.target.value) as unknown as number)}
+            className={inputClass}
+          />
+        </div>
         <div>
           <label className={labelClass}>Price (€)</label>
           <input

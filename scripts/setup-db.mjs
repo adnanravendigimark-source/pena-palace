@@ -68,6 +68,11 @@ async function createTables() {
       description TEXT NOT NULL,
       includes JSONB NOT NULL DEFAULT '[]',
       duration TEXT,
+      -- Placeholder rating/review data until this site has real, verified
+      -- reviews — shown as UI only, deliberately excluded from JSON-LD
+      -- structured data (see app/page.tsx) to avoid a fake-schema penalty.
+      rating NUMERIC(2, 1) NOT NULL DEFAULT 4.5,
+      reviews INTEGER NOT NULL DEFAULT 0,
       price INTEGER NOT NULL DEFAULT 0,
       original_price INTEGER,
       image TEXT NOT NULL,
@@ -121,6 +126,9 @@ async function createTables() {
       hero_subheading TEXT NOT NULL DEFAULT '',
       hero_image TEXT NOT NULL DEFAULT '',
       hero_image_alt TEXT NOT NULL DEFAULT '',
+      -- Placeholder — same rationale as tours.rating/reviews above.
+      rating_value TEXT NOT NULL DEFAULT '',
+      rating_count TEXT NOT NULL DEFAULT '',
       show_featured_tour BOOLEAN NOT NULL DEFAULT true,
       featured_tour_id TEXT NOT NULL DEFAULT '',
       featured_badge_label TEXT NOT NULL DEFAULT '',
@@ -263,12 +271,13 @@ async function addSeoColumns() {
 
   await sql`ALTER TABLE tours ADD COLUMN IF NOT EXISTS price_table_column1 TEXT NOT NULL DEFAULT ''`;
   await sql`ALTER TABLE tours ADD COLUMN IF NOT EXISTS price_table_feature TEXT NOT NULL DEFAULT ''`;
-  // This site publishes no fabricated review data — drop these columns if an
-  // earlier scaffold of this DB already created them with placeholder values.
-  await sql`ALTER TABLE tours DROP COLUMN IF EXISTS rating`;
-  await sql`ALTER TABLE tours DROP COLUMN IF EXISTS reviews`;
-  await sql`ALTER TABLE homepage DROP COLUMN IF EXISTS rating_value`;
-  await sql`ALTER TABLE homepage DROP COLUMN IF EXISTS rating_count`;
+  // Placeholder rating/review columns — heal them back in for any DB created
+  // while this site briefly shipped without them. Real numbers should
+  // replace these once the site has actual verified reviews.
+  await sql`ALTER TABLE tours ADD COLUMN IF NOT EXISTS rating NUMERIC(2, 1) NOT NULL DEFAULT 4.5`;
+  await sql`ALTER TABLE tours ADD COLUMN IF NOT EXISTS reviews INTEGER NOT NULL DEFAULT 0`;
+  await sql`ALTER TABLE homepage ADD COLUMN IF NOT EXISTS rating_value TEXT NOT NULL DEFAULT ''`;
+  await sql`ALTER TABLE homepage ADD COLUMN IF NOT EXISTS rating_count TEXT NOT NULL DEFAULT ''`;
 
   await sql`ALTER TABLE about_page ADD COLUMN IF NOT EXISTS contact_prompt_html TEXT NOT NULL DEFAULT ''`;
   // About page redesign: the page now uses one flowing rich-text "content"

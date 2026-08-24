@@ -39,7 +39,7 @@ export default async function AboutPage() {
   return (
     <>
       <Header />
-      <main className="bg-[#F7F3EA]">
+      <main className="bg-white">
         {/* Hero banner — admin-editable (About page → Page title) */}
         <section className="relative overflow-hidden bg-[#123B27] text-white">
           <div className="absolute inset-0">

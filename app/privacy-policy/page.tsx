@@ -28,7 +28,7 @@ export default async function PrivacyPolicyPage() {
   return (
     <>
       <Header />
-      <main className="bg-[#F7F3EA] min-h-screen py-16 sm:py-20">
+      <main className="bg-white min-h-screen py-16 sm:py-20">
         <div className="mx-auto max-w-3xl px-4 sm:px-6">
           <h1 className="font-serif text-3xl font-bold text-[#123B27] sm:text-4xl">{policy.title}</h1>
           {policy.lastUpdated && (

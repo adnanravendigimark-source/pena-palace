@@ -20,7 +20,7 @@ export default async function PriceComparison() {
         />
       </div>
 
-      <div className="mt-10 overflow-x-auto rounded-2xl border border-[#E9E1D3] bg-white shadow-sm">
+      <div className="mt-10 overflow-x-auto rounded-2xl border border-gray-200 bg-white shadow-sm">
         <table className="w-full min-w-[700px] border-collapse text-left text-sm">
           <thead>
             <tr className="bg-[#123B27] text-white">
@@ -32,12 +32,12 @@ export default async function PriceComparison() {
               <th className="px-6 py-4"></th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-[#E9E1D3]">
+          <tbody className="divide-y divide-gray-100">
             {tours.map((tour, i) => (
               <tr
                 key={tour.id}
-                className={`transition hover:bg-[#F7F3EA] ${
-                  tour.featured ? "bg-[#DDE5D8]/30 font-medium" : i % 2 ? "bg-[#F7F3EA]/40" : ""
+                className={`transition hover:bg-gray-50 ${
+                  tour.featured ? "bg-amber-50/40 font-medium" : i % 2 ? "bg-gray-50/50" : ""
                 }`}
               >
                 <td className="px-6 py-4 font-semibold text-[#123B27]">{tour.title}</td>

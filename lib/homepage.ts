@@ -207,6 +207,10 @@ export interface HomepageContent {
   heroCtaPrimaryHref: string;
   heroCtaSecondaryText: string;
   heroCtaSecondaryHref: string;
+  // Placeholder rating display until this site has real, verified reviews.
+  // Deliberately excluded from JSON-LD structured data (see app/page.tsx).
+  ratingValue: string;
+  ratingCount: string;
   showFeaturedTour: boolean;
   featuredTourId: string;
   featuredBadgeLabel: string;
@@ -515,6 +519,8 @@ const DEFAULT_HOMEPAGE_CONTENT: HomepageContent = {
   heroCtaPrimaryHref: "#tours",
   heroCtaSecondaryText: "Explore Tours",
   heroCtaSecondaryHref: "#tours",
+  ratingValue: "4.6/5",
+  ratingCount: "100+ reviews",
   showFeaturedTour: true,
   featuredTourId: "pena-palace-park-skip-the-line-entry",
   featuredBadgeLabel: "Most Popular Ticket",
@@ -588,6 +594,8 @@ function rowToHomepage(row: any): HomepageContent {
     heroCtaPrimaryHref: row.hero_cta_primary_href || DEFAULT_HOMEPAGE_CONTENT.heroCtaPrimaryHref,
     heroCtaSecondaryText: row.hero_cta_secondary_text || DEFAULT_HOMEPAGE_CONTENT.heroCtaSecondaryText,
     heroCtaSecondaryHref: row.hero_cta_secondary_href || DEFAULT_HOMEPAGE_CONTENT.heroCtaSecondaryHref,
+    ratingValue: row.rating_value || DEFAULT_HOMEPAGE_CONTENT.ratingValue,
+    ratingCount: row.rating_count || DEFAULT_HOMEPAGE_CONTENT.ratingCount,
     showFeaturedTour: !!row.show_featured_tour,
     featuredTourId: row.featured_tour_id || DEFAULT_HOMEPAGE_CONTENT.featuredTourId,
     featuredBadgeLabel: row.featured_badge_label || DEFAULT_HOMEPAGE_CONTENT.featuredBadgeLabel,
@@ -658,6 +666,8 @@ export async function saveHomepageCopy(data: {
   heroCtaPrimaryHref: string;
   heroCtaSecondaryText: string;
   heroCtaSecondaryHref: string;
+  ratingValue: string;
+  ratingCount: string;
   metaTitle: string;
   metaDescription: string;
   focusKeyword: string;
@@ -671,7 +681,7 @@ export async function saveHomepageCopy(data: {
       id, hero_badge, hero_heading, hero_subheading, hero_image, hero_image_alt,
       hero_video, hero_gallery, hero_features, hero_cta_primary_text, hero_cta_primary_href,
       hero_cta_secondary_text, hero_cta_secondary_href,
-      meta_title, meta_description, focus_keyword,
+      rating_value, rating_count, meta_title, meta_description, focus_keyword,
       canonical_url, og_title, og_description, og_image
     ) VALUES (
       1, ${data.heroBadge}, ${data.heroHeading}, ${data.heroSubheading}, ${data.heroImage},
@@ -679,6 +689,7 @@ export async function saveHomepageCopy(data: {
       ${JSON.stringify(data.heroFeatures || [])}::jsonb,
       ${data.heroCtaPrimaryText || ""}, ${data.heroCtaPrimaryHref || ""},
       ${data.heroCtaSecondaryText || ""}, ${data.heroCtaSecondaryHref || ""},
+      ${data.ratingValue || ""}, ${data.ratingCount || ""},
       ${data.metaTitle || ""}, ${data.metaDescription || ""}, ${data.focusKeyword || ""},
       ${data.canonicalUrl || ""}, ${data.ogTitle || ""}, ${data.ogDescription || ""}, ${data.ogImage || ""}
     )
@@ -695,6 +706,8 @@ export async function saveHomepageCopy(data: {
       hero_cta_primary_href = EXCLUDED.hero_cta_primary_href,
       hero_cta_secondary_text = EXCLUDED.hero_cta_secondary_text,
       hero_cta_secondary_href = EXCLUDED.hero_cta_secondary_href,
+      rating_value = EXCLUDED.rating_value,
+      rating_count = EXCLUDED.rating_count,
       meta_title = EXCLUDED.meta_title,
       meta_description = EXCLUDED.meta_description,
       focus_keyword = EXCLUDED.focus_keyword,

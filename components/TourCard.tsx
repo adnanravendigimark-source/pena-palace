@@ -1,4 +1,5 @@
 import SafeImage from "./SafeImage";
+import StarRating from "./StarRating";
 import type { Tour } from "@/lib/data";
 import { LockIcon } from "./icons";
 
@@ -39,6 +40,12 @@ export default function TourCard({
             <span>👑</span>
             {recommended ? recommended.badgeLabel : tour.ribbon}
           </span>
+        )}
+
+        {tour.rating !== undefined && (
+          <div className="absolute bottom-3 left-3 flex items-center gap-1.5 rounded-lg bg-marble-50/95 px-2.5 py-1 text-xs font-bold text-navy-900 shadow-md backdrop-blur-md">
+            <StarRating rating={tour.rating} showValue reviewCount={tour.reviews} size="xs" />
+          </div>
         )}
       </div>
 

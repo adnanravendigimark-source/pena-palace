@@ -9,6 +9,8 @@ const blank: TourRecord = {
   description: "",
   includes: [],
   duration: "",
+  rating: 4.5,
+  reviews: 0,
   price: 0,
   originalPrice: undefined,
   image: "",

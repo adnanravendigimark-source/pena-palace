@@ -30,10 +30,10 @@ export default async function ContactPage() {
   return (
     <>
       <Header />
-      <main className="bg-[#F7F3EA] min-h-screen py-16 sm:py-24">
+      <main className="bg-[#FAFAF9] min-h-screen py-16 sm:py-24">
         <div className="mx-auto max-w-3xl px-4 sm:px-6">
           <div className="text-center">
-            <span className="inline-block rounded-md bg-white border border-[#E9E1D3] px-3 py-1 text-xs font-bold uppercase tracking-wider text-[#D6A33A] shadow-sm">
+            <span className="inline-block rounded-md bg-white border border-gray-200 px-3 py-1 text-xs font-bold uppercase tracking-wider text-[#D6A33A] shadow-sm">
               {contact.heroEyebrow}
             </span>
             <h1 className="mt-3 font-serif text-3xl font-bold text-[#123B27] sm:text-4xl">
@@ -46,7 +46,7 @@ export default async function ContactPage() {
           </div>
 
           {/* Primary email card */}
-          <div className="mt-10 flex flex-col items-center gap-3.5 rounded-2xl border border-[#E9E1D3] bg-white p-8 sm:p-10 text-center shadow-sm">
+          <div className="mt-10 flex flex-col items-center gap-3.5 rounded-2xl border border-gray-200 bg-white p-8 sm:p-10 text-center shadow-sm">
             <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#123B27] text-white shadow-md">
               <MailIcon className="h-6 w-6" />
             </span>

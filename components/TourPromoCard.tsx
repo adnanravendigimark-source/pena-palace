@@ -1,4 +1,5 @@
 import SafeImage from "./SafeImage";
+import StarRating from "./StarRating";
 import type { Tour } from "@/lib/data";
 
 export default function TourPromoCard({
@@ -21,6 +22,12 @@ export default function TourPromoCard({
         </span>
         <p className="mt-1 font-display text-lg font-bold text-charcoal-800">{tour.title}</p>
         <div className="mt-1.5 flex items-center gap-2 text-xs font-medium text-charcoal-600">
+          {tour.rating !== undefined && (
+            <>
+              <StarRating rating={tour.rating} showValue reviewCount={tour.reviews} size="xs" />
+              <span>·</span>
+            </>
+          )}
           <span>from €{tour.price}/person</span>
         </div>
       </div>

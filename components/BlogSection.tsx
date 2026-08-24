@@ -11,7 +11,7 @@ export default async function BlogSection() {
   if (posts.length === 0) return null;
 
   return (
-    <section className="bg-white py-16 sm:py-20 border-t border-[#E9E1D3]" id="blog-guides">
+    <section className="bg-white py-16 sm:py-20 border-t border-gray-100" id="blog-guides">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-5">
           <div>
@@ -27,7 +27,7 @@ export default async function BlogSection() {
           </div>
           <Link
             href="/blog"
-            className="group inline-flex items-center justify-center gap-2 self-start md:self-auto rounded-lg border border-[#123B27] bg-white px-6 py-2.5 text-xs font-bold uppercase tracking-wider text-[#123B27] shadow-sm transition-all hover:bg-[#F7F3EA] hover:-translate-y-0.5"
+            className="group inline-flex items-center justify-center gap-2 self-start md:self-auto rounded-lg border border-[#123B27] bg-white px-6 py-2.5 text-xs font-bold uppercase tracking-wider text-[#123B27] shadow-sm transition-all hover:bg-gray-50 hover:-translate-y-0.5"
           >
             <span>{s.viewAllText || "View All Guides"}</span>
             <span className="transition-transform group-hover:translate-x-1">→</span>
@@ -38,7 +38,7 @@ export default async function BlogSection() {
           {posts.map((post) => (
             <article
               key={post.slug}
-              className="group flex flex-col overflow-hidden rounded-2xl border border-[#E9E1D3] bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-[#D6A33A]/40"
+              className="group flex flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-[#D6A33A]/40"
             >
               <Link href={`/blog/${post.slug}`} className="relative aspect-[16/10] overflow-hidden bg-[#123B27]">
                 <SafeImage
@@ -52,7 +52,7 @@ export default async function BlogSection() {
               </Link>
               <div className="flex flex-1 flex-col p-5">
                 <div className="flex items-center gap-2 text-xs">
-                  <span className="inline-flex rounded-md bg-[#F7F3EA] border border-[#E9E1D3] px-2 py-0.5 font-bold uppercase tracking-wider text-[#D6A33A] text-[10px]">
+                  <span className="inline-flex rounded-md bg-gray-50 border border-gray-200 px-2 py-0.5 font-bold uppercase tracking-wider text-[#D6A33A] text-[10px]">
                     {post.category}
                   </span>
                   {post.readTime && <span className="text-[#26332B]/60 text-[11px] font-medium">{post.readTime}</span>}

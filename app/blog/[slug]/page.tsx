@@ -103,7 +103,7 @@ export default async function Post({ params }: { params: { slug: string } }) {
   return (
     <>
       <Header />
-      <main className="min-h-screen bg-[#F7F3EA]">
+      <main className="min-h-screen bg-white">
         <div className="mx-auto max-w-6xl px-4 pt-6 sm:px-6">
           {/* Breadcrumbs */}
           <nav aria-label="Breadcrumb" className="text-xs font-medium text-[#26332B]/80">
@@ -128,7 +128,7 @@ export default async function Post({ params }: { params: { slug: string } }) {
 
           {/* Post Header */}
           <div className="mt-5">
-            <span className="inline-block rounded-md bg-white border border-[#E9E1D3] px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-[#D6A33A] shadow-sm">
+            <span className="inline-block rounded-md bg-white border border-gray-200 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-[#D6A33A] shadow-sm">
               {post.category}
             </span>
 
@@ -161,7 +161,7 @@ export default async function Post({ params }: { params: { slug: string } }) {
             </div>
 
             {/* Hero Cover Image */}
-            <div className="relative mt-6 aspect-[16/9] sm:aspect-[21/10] w-full overflow-hidden rounded-2xl border border-[#E9E1D3] shadow-sm bg-[#123B27]">
+            <div className="relative mt-6 aspect-[16/9] sm:aspect-[21/10] w-full overflow-hidden rounded-2xl border border-gray-200 shadow-sm bg-[#123B27]">
               <SafeImage
                 src={post.image}
                 alt={post.imageAlt || post.title}

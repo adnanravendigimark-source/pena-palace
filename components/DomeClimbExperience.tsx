@@ -6,10 +6,10 @@ export default async function DomeClimbExperience() {
   const s = sections.tower;
 
   return (
-    <section id="palace-towers-experience" className="bg-white py-20 sm:py-24 border-y border-[#E9E1D3]/70">
+    <section id="palace-towers-experience" className="bg-white py-20 sm:py-24 border-y border-gray-100">
       <div className="mx-auto grid max-w-7xl gap-12 px-4 sm:px-8 lg:grid-cols-2 lg:items-center">
         <div>
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-[#F7F3EA] border border-[#E9E1D3] px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-[#D6A33A]">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-gray-50 border border-gray-200 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-[#D6A33A]">
             <span>🏰</span> {s.eyebrow}
           </span>
           <h2 className="mt-3 font-serif text-2xl sm:text-3xl lg:text-[2.15rem] font-bold text-[#123B27] leading-[1.2] tracking-tight">
@@ -40,7 +40,7 @@ export default async function DomeClimbExperience() {
           {s.images.map((img, i) => (
             <div
               key={img.label + i}
-              className="group relative h-36 overflow-hidden rounded-2xl border border-[#E9E1D3] shadow-md sm:h-44 bg-[#0D2E1E]"
+              className="group relative h-36 overflow-hidden rounded-2xl border border-gray-200 shadow-md sm:h-44 bg-[#0D2E1E]"
             >
               <SafeImage
                 src={img.src}

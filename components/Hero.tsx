@@ -7,7 +7,7 @@ export default async function Hero() {
   const heroImageSrc = content.heroImage || "/images/pena-palace-hero.jpg";
 
   return (
-    <section className="relative w-full min-h-screen min-h-[100dvh] flex flex-col justify-center bg-[#F7F3EA] overflow-hidden">
+    <section className="relative w-full min-h-[calc(100vh-5rem)] min-h-[calc(100dvh-5rem)] flex flex-col justify-center bg-white overflow-hidden">
       {/* Full-bleed Panoramic Background Image */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         {content.heroVideo ? (
