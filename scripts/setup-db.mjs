@@ -390,6 +390,28 @@ async function seedTours() {
   const tours = readJsonFile("tours.json");
   if (!tours || tours.length === 0) return;
 
+  const [{ count }] = await sql`SELECT COUNT(*)::int AS count FROM tours`;
+
+  if (count > 0) {
+    // The tours table already has rows — this is not a fresh install, it's
+    // a re-run against a live site. An admin may have deliberately deleted
+    // some seed tours (e.g. down to 3 of the original 6). The previous
+    // version of this function looped over every seed tour and ran
+    // INSERT ... ON CONFLICT (id) DO UPDATE unconditionally: for a tour id
+    // that had been deleted, ON CONFLICT never fires (the row no longer
+    // exists), so the plain INSERT silently re-created it — resurrecting
+    // deleted tours every time this script was re-run for something
+    // unrelated (e.g. new blog CMS columns). Only UPDATE tours that still
+    // exist (to keep healing stale image paths); never INSERT here, so a
+    // deleted tour stays deleted. Matches the "skip if already seeded"
+    // pattern used by seedPosts()/seedFaqs() below.
+    for (const t of tours) {
+      await sql`UPDATE tours SET image = ${t.image}, image_alt = ${t.imageAlt} WHERE id = ${t.id}`;
+    }
+    console.log(`tours: table already has ${count} row(s) — synced images on existing rows only (no re-inserts, so deleted tours stay deleted).`);
+    return;
+  }
+
   for (let i = 0; i < tours.length; i++) {
     const t = tours[i];
     await sql`
@@ -404,12 +426,10 @@ async function seedTours() {
         ${t.image}, ${t.imageAlt}, ${t.hrefPath || t.href}, ${t.hrefExtra || null},
         ${!!t.featured}, ${t.bestFor || ""}, ${i}
       )
-      ON CONFLICT (id) DO UPDATE SET
-        image = EXCLUDED.image,
-        image_alt = EXCLUDED.image_alt
+      ON CONFLICT (id) DO NOTHING
     `;
   }
-  console.log(`tours: synced ${tours.length} tour image(s).`);
+  console.log(`tours: seeded ${tours.length} row(s) into empty table.`);
 }
 
 async function seedPosts() {
