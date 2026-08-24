@@ -26,6 +26,7 @@ export default async function Header() {
           alt="Pena Palace Header Background"
           fill
           priority
+          quality={95}
           sizes="100vw"
           className="hidden md:block object-cover object-[80%_0%] lg:object-[right_top]"
         />

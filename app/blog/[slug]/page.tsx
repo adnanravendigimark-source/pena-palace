@@ -5,6 +5,8 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import BlogPostBody from "@/components/BlogPostBody";
 import BlogSidebar from "@/components/BlogSidebar";
+import QuickAnswer from "@/components/QuickAnswer";
+import RelatedPosts from "@/components/RelatedPosts";
 import SafeImage from "@/components/SafeImage";
 import { CalendarIcon, ClockPayIcon, TicketIcon } from "@/components/icons";
 import { getPost, getPosts } from "@/lib/posts";
@@ -71,6 +73,7 @@ export default async function Post({ params }: { params: { slug: string } }) {
     getPosts(),
     getHomepageContent(),
   ]);
+  const s = sections.blogPage;
 
   if (!post) {
     const target = await getRedirectTarget(params.slug);
@@ -96,7 +99,11 @@ export default async function Post({ params }: { params: { slug: string } }) {
   ]);
 
   const { toc: headingToc, html: contentHtml } = extractTableOfContents(post.content);
-  const toc = headingToc;
+  // "Quick Answer" is prepended by hand since it's its own field/component
+  // rather than a heading inside `content` — see components/QuickAnswer.tsx.
+  const toc = post.quickAnswer.trim()
+    ? [{ id: "quick-answer", text: s.quickAnswerLabel, level: 2 as const }, ...headingToc]
+    : headingToc;
   const author = getAuthorParts(post.author);
   const popularPosts = allPosts.filter((p) => p.slug !== post.slug);
 
@@ -105,8 +112,15 @@ export default async function Post({ params }: { params: { slug: string } }) {
       <Header />
       <main className="min-h-screen bg-white">
         <div className="mx-auto max-w-6xl px-4 pt-6 sm:px-6">
+          <Link
+            href="/blog"
+            className="inline-flex items-center gap-1 text-sm font-medium text-[#123B27] hover:text-[#D6A33A] transition-colors"
+          >
+            {s.backToGuidesText}
+          </Link>
+
           {/* Breadcrumbs */}
-          <nav aria-label="Breadcrumb" className="text-xs font-medium text-[#26332B]/80">
+          <nav aria-label="Breadcrumb" className="mt-3 text-xs font-medium text-[#26332B]/80">
             <ol className="flex flex-wrap items-center gap-1.5">
               <li>
                 <Link href="/" className="hover:text-[#D6A33A] transition-colors">
@@ -178,13 +192,18 @@ export default async function Post({ params }: { params: { slug: string } }) {
           <div className="mt-10 pb-20 lg:grid lg:grid-cols-[1fr_280px] lg:gap-10">
             {/* Left Column: Article Body */}
             <div>
+              {post.quickAnswer.trim() && (
+                <QuickAnswer label={s.quickAnswerLabel}>{post.quickAnswer}</QuickAnswer>
+              )}
+
               <BlogPostBody
                 content={contentHtml}
                 recommendedTourId={post.recommendedTourId}
                 showRecommendedTour={!!post.recommendedTourAfterBlock}
+                recommendedLabel={s.promoRecommendedText}
               />
 
-              {/* Bottom Article CTA Card */}
+              {/* Bottom Article CTA Card — admin-editable per post (PostForm → "Ready to book?" callout) */}
               <div className="mt-12 flex flex-col items-center justify-between gap-5 rounded-2xl bg-[#123B27] p-6 text-center text-white sm:flex-row sm:text-left shadow-md border border-[#0D2E1E]">
                 <div className="flex items-center gap-4">
                   <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-white/10 text-[#D6A33A] border border-white/15 shadow-sm">
@@ -192,20 +211,24 @@ export default async function Post({ params }: { params: { slug: string } }) {
                   </div>
                   <div>
                     <p className="font-serif text-base font-bold text-white">
-                      Ready to Explore Pena Palace?
+                      {post.ctaHeading}
                     </p>
                     <p className="mt-0.5 text-xs text-[#DDE5D8]">
-                      Compare passes and secure guaranteed timed entry tickets online.
+                      {post.ctaBody}
                     </p>
                   </div>
                 </div>
 
                 <a
-                  href="/#tours"
+                  href={post.ctaButtonHref}
                   className="inline-flex shrink-0 items-center gap-1.5 rounded-lg bg-[#D6A33A] px-5 py-2.5 text-xs font-bold text-white shadow-sm transition hover:bg-[#B3841F] hover:scale-[1.02]"
                 >
-                  Compare Pena Palace Tickets →
+                  {post.ctaButtonText}
                 </a>
+              </div>
+
+              <div className="mt-12">
+                <RelatedPosts slug={post.slug} />
               </div>
             </div>
 
@@ -215,7 +238,10 @@ export default async function Post({ params }: { params: { slug: string } }) {
                 slug={post.slug}
                 popularPosts={popularPosts}
                 toc={toc}
-                tocLabel="IN THIS GUIDE"
+                tocLabel={s.tocLabel}
+                relatedHeading={s.sidebarRelatedHeading}
+                compareLinkText={s.sidebarCompareLinkText}
+                recommendedBadge={s.sidebarRecommendedBadge}
               />
             </div>
           </div>
