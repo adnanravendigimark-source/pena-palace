@@ -24,9 +24,7 @@ const bodyFont = Plus_Jakarta_Sans({
 const DEFAULT_OG_IMAGE = "https://commons.wikimedia.org/wiki/Special:FilePath/Image%20of%20Pena%20Palace%2C%20Sintra%2C%20Portugal.jpg";
 
 // Google Analytics (GA4) measurement ID.
-// Placeholder — this site does not share Florence's GA property. Replace
-// with a new GA4 measurement ID for this site before going live.
-const GA_MEASUREMENT_ID = "G-XXXXXXXXXX";
+const GA_MEASUREMENT_ID = "G-FLTLV5RF8S";
 
 const touristAttractionJsonLd = {
   "@context": "https://schema.org",
