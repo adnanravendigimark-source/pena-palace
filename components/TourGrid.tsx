@@ -90,16 +90,19 @@ export default async function TourGrid() {
                   {stripHtml(tour.description)}
                 </p>
 
-                {/* Feature Tags — first 3 admin "Includes" items, one compact
-                    line each (Best for/recommend-reasons moved off this
-                    card to keep it short; Best for still shows in the Price
-                    Comparison table below). */}
+                {/* Feature Tags — first 3 admin "Includes" items, boxed
+                    (Best for/recommend-reasons moved off this card to keep
+                    it short; Best for still shows in the Price Comparison
+                    table below). */}
                 {tour.includes.length > 0 && (
-                  <div className="mt-3 space-y-1">
+                  <div className="mt-4 space-y-1.5">
                     {tour.includes.slice(0, 3).map((feat, idx) => (
-                      <div key={idx} className="flex items-center gap-1.5 text-[11.5px] text-[#26332B]/90">
-                        <span className="text-[#123B27] font-bold shrink-0">✓</span>
-                        <span className="leading-tight line-clamp-1">{feat}</span>
+                      <div
+                        key={idx}
+                        className="flex items-start gap-2 rounded-md bg-gray-50 px-2.5 py-1.5 text-[11.5px] text-[#26332B] border border-gray-100"
+                      >
+                        <span className="mt-0.5 text-[#123B27] font-bold shrink-0">✓</span>
+                        <span className="leading-tight font-medium line-clamp-1">{feat}</span>
                       </div>
                     ))}
                   </div>
