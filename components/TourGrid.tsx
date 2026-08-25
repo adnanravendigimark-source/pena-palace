@@ -90,45 +90,17 @@ export default async function TourGrid() {
                   {stripHtml(tour.description)}
                 </p>
 
-                {/* Feature Tags List */}
+                {/* Feature Tags — first 3 admin "Includes" items, one compact
+                    line each (duration/Best for/recommend-reasons moved off
+                    this card to keep it short; duration + Best for still
+                    show in the Price Comparison table below). */}
                 {tour.includes.length > 0 && (
-                  <div className="mt-4 space-y-1.5">
-                    {tour.includes.map((feat, idx) => (
-                      <div
-                        key={idx}
-                        className="flex items-start gap-2 rounded-md bg-gray-50 px-2.5 py-1.5 text-[11.5px] text-[#26332B] border border-gray-100"
-                      >
-                        <span className="mt-0.5 text-[#123B27] font-bold shrink-0">✓</span>
-                        <span className="leading-tight font-medium line-clamp-1">{feat}</span>
+                  <div className="mt-3 space-y-1">
+                    {tour.includes.slice(0, 3).map((feat, idx) => (
+                      <div key={idx} className="flex items-center gap-1.5 text-[11.5px] text-[#26332B]/90">
+                        <span className="text-[#123B27] font-bold shrink-0">✓</span>
+                        <span className="leading-tight line-clamp-1">{feat}</span>
                       </div>
-                    ))}
-                  </div>
-                )}
-
-                {/* Validity Duration */}
-                {tour.duration && (
-                  <div className="mt-3 flex items-center gap-1.5 text-[11px] text-[#26332B]/70">
-                    <span>⏱</span>
-                    <span className="font-medium">{tour.duration}</span>
-                  </div>
-                )}
-
-                {/* Best For — admin → Tours & Tickets → "Best for" field */}
-                {tour.bestFor && (
-                  <div className="mt-1.5 flex items-start gap-1.5 text-[11px] text-[#26332B]/70">
-                    <span>👤</span>
-                    <span className="font-medium">Best for: {tour.bestFor}</span>
-                  </div>
-                )}
-
-                {/* "Why we recommend this" — admin → Recommended Tour panel */}
-                {isRecommended && homepage.featuredReasons.filter(Boolean).length > 0 && (
-                  <div className="mt-3.5 rounded-xl bg-amber-50/50 border border-amber-200/60 p-3">
-                    {homepage.featuredReasons.filter(Boolean).slice(0, 2).map((reason) => (
-                      <p key={reason} className="flex items-start gap-1.5 text-[11px] leading-snug text-[#123B27] font-semibold">
-                        <span className="mt-0.5 text-[#D6A33A]">✓</span>
-                        {reason}
-                      </p>
                     ))}
                   </div>
                 )}
