@@ -91,9 +91,9 @@ export default async function TourGrid() {
                 </p>
 
                 {/* Feature Tags — first 3 admin "Includes" items, one compact
-                    line each (duration/Best for/recommend-reasons moved off
-                    this card to keep it short; duration + Best for still
-                    show in the Price Comparison table below). */}
+                    line each (Best for/recommend-reasons moved off this
+                    card to keep it short; Best for still shows in the Price
+                    Comparison table below). */}
                 {tour.includes.length > 0 && (
                   <div className="mt-3 space-y-1">
                     {tour.includes.slice(0, 3).map((feat, idx) => (
@@ -102,6 +102,14 @@ export default async function TourGrid() {
                         <span className="leading-tight line-clamp-1">{feat}</span>
                       </div>
                     ))}
+                  </div>
+                )}
+
+                {/* Duration — admin → Tours & Tickets → "Duration" field */}
+                {tour.duration && (
+                  <div className="mt-2 flex items-center gap-1.5 text-[11px] text-[#26332B]/70">
+                    <span>⏱</span>
+                    <span className="font-medium">{tour.duration}</span>
                   </div>
                 )}
 
