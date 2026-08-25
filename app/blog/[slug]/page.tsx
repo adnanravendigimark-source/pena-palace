@@ -111,7 +111,7 @@ export default async function Post({ params }: { params: { slug: string } }) {
     <>
       <Header />
       <main className="min-h-screen bg-white">
-        <div className="mx-auto max-w-6xl px-4 pt-6 sm:px-6">
+        <div className="mx-auto max-w-6xl px-4 pt-24 sm:pt-28">
           <Link
             href="/blog"
             className="inline-flex items-center gap-1 text-sm font-medium text-[#123B27] hover:text-[#D6A33A] transition-colors"

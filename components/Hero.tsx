@@ -7,7 +7,7 @@ export default async function Hero() {
   const heroImageSrc = content.heroImage || "/images/pena-palace-hero.jpg";
 
   return (
-    <section className="relative w-full min-h-[calc(100vh-5rem)] min-h-[calc(100dvh-5rem)] flex flex-col justify-center bg-white overflow-hidden">
+    <section className="relative w-full min-h-screen min-h-[100dvh] flex flex-col justify-center bg-white overflow-hidden">
       {/* Full-bleed Panoramic Background Image */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         {content.heroVideo ? (
@@ -29,7 +29,7 @@ export default async function Hero() {
             priority
             quality={75}
             sizes="100vw"
-            className="object-cover object-[80%_center] md:object-[78%_center] lg:object-right"
+            className="object-cover object-[80%_72%] md:object-[78%_72%] lg:object-[82%_75%]"
           />
         )}
         {/* Atmospheric gradient overlay ensuring crystal-clear text readability on mobile and desktop */}

@@ -30,7 +30,7 @@ export default async function ContactPage() {
   return (
     <>
       <Header />
-      <main className="bg-[#FAFAF9] min-h-screen py-16 sm:py-24">
+      <main className="bg-[#FAFAF9] min-h-screen pt-28 sm:pt-32 pb-16 sm:py-24">
         <div className="mx-auto max-w-3xl px-4 sm:px-6">
           <div className="text-center">
             <span className="inline-block rounded-md bg-white border border-gray-200 px-3 py-1 text-xs font-bold uppercase tracking-wider text-[#D6A33A] shadow-sm">
