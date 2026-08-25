@@ -15,7 +15,13 @@ export default async function Header() {
     { label: "Contact", href: "/contact" },
   ];
   const ctaText = header.ctaText || header.bookNowText || "BOOK TICKETS";
-  const ctaHref = header.ctaHref || "#tours";
+  // A bare "#tours" hash link only scrolls when it's already on a page that
+  // has that section (the homepage). On any other page (contact, about,
+  // blog…) the browser just appends the hash to the current URL and nothing
+  // happens, since e.g. /contact has no #tours element. Prefixing with "/"
+  // makes it navigate to the homepage first, then jump to the section.
+  const rawCtaHref = header.ctaHref || "#tours";
+  const ctaHref = rawCtaHref.startsWith("#") ? `/${rawCtaHref}` : rawCtaHref;
 
   return (
     <header className="sticky top-0 z-50 w-full overflow-hidden border-0 transition-all duration-300 bg-[#E8F1F8] md:bg-transparent">
