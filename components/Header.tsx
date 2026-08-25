@@ -24,7 +24,12 @@ export default async function Header() {
   const ctaHref = rawCtaHref.startsWith("#") ? `/${rawCtaHref}` : rawCtaHref;
 
   return (
-    <header className="sticky top-0 z-50 w-full overflow-hidden border-0 transition-all duration-300 bg-[#E8F1F8] md:bg-transparent">
+    <header className="sticky top-0 z-50 w-full border-0 transition-all duration-300 bg-[#E8F1F8] md:bg-transparent">
+      {/* Note: no overflow-hidden here — the mobile nav dropdown below is
+          absolutely positioned just past this header's own height (top-20),
+          and overflow-hidden on this element would clip it out of view.
+          The background image div is already bounded by its own inset-0
+          sizing, so it doesn't need this element to clip it. */}
       {/* Hero Image in Header Background (Sky portion on desktop, pure daylight sky tone on mobile) */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <SafeImage
